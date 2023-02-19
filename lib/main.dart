@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
-
 import 'pages/addItem.dart' as item;
 import 'pages/home.dart' as home;
 import 'widgets/search.dart';
 
 void main() {
-  runApp(new MaterialApp(
-    home: new MyApp(),
-    routes: <String, WidgetBuilder>{
-      '/addItem' : (BuildContext context) => new item.AddItem()
-    }
-    ));
+  runApp(new MaterialApp(home: new MyApp(), routes: <String, WidgetBuilder>{
+    '/addItem': (BuildContext context) => new item.AddItem()
+  }));
 }
 
 class MyApp extends StatefulWidget {
   @override
- _MyAppState createState() => new _MyAppState();
+  _MyAppState createState() => new _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin{
+class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   late TabController controller;
 
   @override
-  void initState(){
+  void initState() {
     controller = new TabController(vsync: this, length: 4);
     super.initState();
   }
 
   @override
-  void dispose(){
+  void dispose() {
     controller.dispose();
     super.dispose();
   }
@@ -37,29 +33,28 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Color.fromARGB(1000, 171, 0, 52),
-          leading:
-              IconButton(
-                onPressed: () {
-                  showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(),
-                  );
-                }, 
-                icon: const Icon(Icons.search)
-                ),
-          title: new Text("Temukan di Gema"),
-          actions: <Widget>[
-            IconButton(onPressed: (){}, icon: const Icon (Icons.favorite)),
-            IconButton(
-              onPressed: (){
+        automaticallyImplyLeading: false,
+        backgroundColor: Color.fromARGB(1000, 171, 0, 52),
+        leading: IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search)),
+        title: new Text(
+          "Temukan di Gema",
+          style: TextStyle(fontSize: 14.0, color: Colors.white),
+        ),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
                 Navigator.pushNamed(context, '/addItem');
-              }, 
-              icon: const Icon (Icons.add)),
-          ],
+              },
+              icon: const Icon(Icons.add)),
+        ],
       ),
-
       body: new TabBarView(
         controller: controller,
         children: <Widget>[
@@ -77,13 +72,16 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin{
           unselectedLabelColor: Colors.grey[600],
           controller: controller,
           tabs: <Widget>[
-            new Tab(icon: new Icon(Icons.home), text: "Home",),
-            new Tab(icon: new Icon(Icons.favorite), text:"Wishlist"),
-            new Tab(icon: new Icon(Icons.notifications), text:"Notifications"),
-            new Tab(icon: new Icon(Icons.account_circle), text:"Profile"),
+            new Tab(
+              icon: new Icon(Icons.home),
+              text: "Beranda",
+            ),
+            new Tab(icon: new Icon(Icons.favorite), text: "Wishlist"),
+            new Tab(icon: new Icon(Icons.notifications), text: "Notifikasi"),
+            new Tab(icon: new Icon(Icons.account_circle), text: "Akun Saya"),
           ],
         ),
-      ),    
+      ),
     );
   }
 }
