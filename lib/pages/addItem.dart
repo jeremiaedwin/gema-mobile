@@ -7,21 +7,27 @@ import '../models/Category.dart';
 List<String> list = <String>['Pilih Kategori', 'Two', 'Three', 'Four'];
 String dropdownValue = "Select Category";
 
-Future<Ad> createAd(String title, String decs,String price,String condition,String category) async {
+Future<Ad> createAd(String title, String desc,String price,String condition,String category) async {
   final http.Response response = await http.post(
-    Uri.parse('https://jsonplaceholder.typicode.com/Ads'),
+    Uri.parse('http://10.0.2.2:8080/api/ad/create'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
       'title': title,
+      'desc': desc,
+      'price': price,
+      'condition': condition,
+      'category': category,
     }),
   );
+
+  print(response.body);
  
   if (response.statusCode == 201) {
     return Ad.fromJson(json.decode(response.body));
   } else {
-    throw Exception('Failed to create Ad.');
+     throw Exception('Failed to create Ad.');
   }
 }
 
