@@ -5,7 +5,7 @@ import 'widgets/search.dart';
 
 void main() {
   runApp(new MaterialApp(home: new MyApp(), routes: <String, WidgetBuilder>{
-    '/addItem': (BuildContext context) => new item.AddItem()
+    '/addItem': (BuildContext context) => new item.AdTypeView()
   }));
 }
 

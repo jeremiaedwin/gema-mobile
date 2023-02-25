@@ -1,17 +1,19 @@
-import 'dart:convert';
-
-List<Category> categoryFromJson(String str) =>
-    List<Category>.from(json.decode(str).map((x) => Category.fromMap(x)));
-
 class Category {
-  Category({
+
+  const Category({
     required this.category_id,
-    required this.category_name,
+    required this.category_name, 
+    required this.ad_type_id, 
   });
-  String category_id;
-  String category_name;
-  factory Category.fromMap(Map<String, dynamic> json) => Category(
-        category_id: json["category_id"],
-        category_name: json["category_name"],
-      );
+  final String category_id;
+  final String category_name;
+  final String ad_type_id;
+
+  factory Category.fromJson(Map<String, dynamic> json) {
+    return Category(
+      category_id: json['category_id'],
+      category_name: json['category_name'],
+      ad_type_id: json['ad_type_id'],
+    );
+  }
 }
