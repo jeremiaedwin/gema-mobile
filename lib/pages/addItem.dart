@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gema_app/controllers/AdTypeController.dart';
 import 'package:gema_app/controllers/CategoryController.dart';
+import 'package:gema_app/controllers/AdController.dart';
 import 'package:gema_app/models/AdType.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -133,7 +134,6 @@ class _AdCategoryState extends State<AdCategory> {
 }
 
 class AddItem extends StatefulWidget {
-  
    final String ad_type_id;
    final String category_id;
   
@@ -146,12 +146,12 @@ class AddItem extends StatefulWidget {
 }
 
 class _AddItemState extends State<AddItem> {
+  AdController _adController = AdController();
   
   TextEditingController titleController = new TextEditingController();
   TextEditingController descController = new TextEditingController();
   TextEditingController priceController = new TextEditingController();
   String _kondisi = '';
-
 
   @override
   void _pilihKondisi(String value){
@@ -251,7 +251,9 @@ class _AddItemState extends State<AddItem> {
                   ElevatedButton(
                       child: const Text('Create Data'),
                       onPressed: () {
-                        setState(() {});
+                        setState(() {
+                          _adController.postData('001', widget.ad_type_id, widget.category_id, _kondisi, '211511000', titleController.text, descController.text, 20000);
+                        });
                       },
                     ),
                 ],
