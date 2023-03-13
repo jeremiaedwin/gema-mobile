@@ -8,10 +8,10 @@ class AdTypeController{
       final response =
           await http.get(Uri.parse('http://10.0.2.2:7000/api/adtype/read/all'));
 
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body) as List<dynamic>;
-        return data.map((json) => AdType.fromJson(json)).toList();
-      }else{
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data.map((json) => AdType.fromJson(json)).toList();
+    } else {
       throw Exception('Failed to load ad type');
     }
 

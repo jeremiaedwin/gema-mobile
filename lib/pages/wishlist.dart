@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Wishlist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -10,52 +10,6 @@ class Home extends StatelessWidget {
           child: new Column(
             children: <Widget>[
               //--------------------------------------------------------------------
-              //Kategori
-              //--------------------------------------------------------------------
-              new Container(
-                margin: EdgeInsets.only(bottom: 20),
-                child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.card_giftcard,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.restaurant,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.local_drink,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.design_services,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.video_camera_back,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                  ],
-                ),
-              ),
-              //--------------------------------------------------------------------
               //rekomendasi
               //--------------------------------------------------------------------
               new Container(
@@ -63,7 +17,7 @@ class Home extends StatelessWidget {
                 child: new Align(
                   alignment: Alignment.topLeft,
                   child: new Text(
-                    "Rekomendasi",
+                    "Wishlist",
                     style: new TextStyle(
                         fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
