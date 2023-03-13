@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'pages/addItem.dart' as item;
 import 'pages/home.dart' as home;
 import 'widgets/search.dart';
+import 'pages/wishlist.dart' as wistlist;
+import 'pages/notifikasi.dart' as notifikasi;
+import 'pages/akun.dart' as akun;
 
 void main() {
   runApp(new MaterialApp(home: new MyApp(), routes: <String, WidgetBuilder>{
@@ -59,9 +62,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         controller: controller,
         children: <Widget>[
           new home.Home(),
-          new home.Home(),
-          new home.Home(),
-          new home.Home(),
+          new wistlist.Wishlist(),
+          new notifikasi.Notifikasi(),
+          new akun.Akun(),
         ],
       ),
       bottomNavigationBar: new Material(
