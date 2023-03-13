@@ -107,7 +107,7 @@ class _AdCategoryState extends State<AdCategory> {
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromARGB(1000, 171, 0, 52),
-        title: const Text('Pilih Jenis Iklan'),
+        title: const Text('Pilih Kategori Iklan'),
       ),
       body: 
           new ListView.builder(
@@ -234,10 +234,7 @@ class _AddItemState extends State<AddItem> {
 
                   // Pilih Kondisi
                   new Padding(padding: EdgeInsets.only(top: 20)),
-                  new Align(
-                    alignment: Alignment.topLeft,
-                    child: new Text("Kondisi", style: new TextStyle(fontSize: 18, fontWeight: FontWeight.w500, color: Colors.grey[700]),),
-                  ),
+                  
                   new TextField(
                     controller: priceController,
                     decoration: new InputDecoration(
@@ -252,7 +249,7 @@ class _AddItemState extends State<AddItem> {
                       child: const Text('Create Data'),
                       onPressed: () {
                         setState(() {
-                          _adController.postData('001', widget.ad_type_id, widget.category_id, _kondisi, '211511000', titleController.text, descController.text, 20000);
+                          _adController.postData('002', widget.ad_type_id, widget.category_id, _kondisi, '211511000', titleController.text, descController.text, 5000);
                         });
                       },
                     ),

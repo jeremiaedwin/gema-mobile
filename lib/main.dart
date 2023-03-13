@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'pages/addItem.dart' as item;
-import 'pages/home.dart' as home;
+import 'pages/home.dart' as home; 
+import 'pages/chat.dart' as chat; 
 import 'widgets/search.dart';
 
 void main() {
   runApp(new MaterialApp(home: new MyApp(), routes: <String, WidgetBuilder>{
-    '/addItem': (BuildContext context) => new item.AdTypeView()
+    '/addItem': (BuildContext context) => new item.AdTypeView(),
+    '/chat': (BuildContext context) => new chat.Chat()
   }));
 }
 
@@ -49,10 +51,17 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         ),
         actions: <Widget>[
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/addItem');
-              },
-              icon: const Icon(Icons.add)),
+            onPressed: () {
+              Navigator.pushNamed(context, '/addItem');
+            },
+            icon: const Icon(Icons.add)
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/chat');
+            },
+            icon: const Icon(Icons.chat_bubble_rounded)
+          ),
         ],
       ),
       body: new TabBarView(
