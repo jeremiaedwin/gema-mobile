@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'pages/addItem.dart' as item;
+import 'pages/addIklan.dart' as item;
 import 'pages/home.dart' as home; 
 import 'pages/chat.dart' as chat; 
 import 'widgets/search.dart';

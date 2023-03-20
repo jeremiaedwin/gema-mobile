@@ -10,8 +10,6 @@ class CategoryController{
     final String id_type = id;
       final response =
           await http.get(Uri.parse('$apiUrl/$id'));
-          print(response.body);
-          print(id);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as List<dynamic>;
         return data.map((json) => Category.fromJson(json)).toList();

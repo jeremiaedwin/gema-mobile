@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Chat extends StatefulWidget {
   const Chat({super.key});
@@ -59,6 +60,17 @@ class ChatRoom extends StatefulWidget {
 }
 
 class _ChatRoomState extends State<ChatRoom> {
+  late IO.Socket socket;
+
+  @override
+  void initState(){
+    socket = IO.io('http://localhost:7000', IO.OptionBuilder()
+      .setTransports(['websocket'])
+      .disableAutoConnect()
+      .build());
+    socket.connect();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +109,28 @@ class _ChatRoomState extends State<ChatRoom> {
       ),
       body: Stack(
         children: <Widget>[
+          ListView.builder(
+            itemCount: 4,
+            shrinkWrap: true,
+            padding: EdgeInsets.only(top: 10, bottom: 10),
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index){
+              return Container(
+                padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey.shade200
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Text("test"),
+                  ),
+                ),
+              );
+            },
+          ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
