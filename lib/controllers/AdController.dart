@@ -11,7 +11,7 @@ class AdController {
       String title,
       String desc,
       int price) async {
-    final apiUrl = Uri.parse('http://192.168.1.8:7000/api/ad/create');
+    final apiUrl = Uri.parse('http://10.0.2.2:7000/api/ad/create');
     final response = await http.post(
       apiUrl,
       headers: <String, String>{

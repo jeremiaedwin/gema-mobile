@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'pages/addItem.dart' as item;
-import 'pages/home.dart' as home;
+import 'package:gema_app/pages/auth.dart';
+import 'pages/addIklan.dart' as item;
+import 'pages/home.dart' as home; 
+import 'pages/chat.dart' as chat; 
 import 'widgets/search.dart';
 import 'pages/wishlist.dart' as wistlist;
 import 'pages/notifikasi.dart' as notifikasi;
 import 'pages/akun.dart' as akun;
+import 'pages/auth.dart' as auth;
 
 void main() {
-  runApp(new MaterialApp(home: new MyApp(), routes: <String, WidgetBuilder>{
-    '/addItem': (BuildContext context) => new item.AdTypeView()
+  runApp(new MaterialApp(home: new LoginPage(), routes: <String, WidgetBuilder>{
+    '/addItem': (BuildContext context) => new item.AdTypeView(),
+    '/chat': (BuildContext context) => new chat.Chat()
   }));
 }
 
@@ -52,10 +56,17 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         ),
         actions: <Widget>[
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/addItem');
-              },
-              icon: const Icon(Icons.add)),
+            onPressed: () {
+              Navigator.pushNamed(context, '/addItem');
+            },
+            icon: const Icon(Icons.add)
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/chat');
+            },
+            icon: const Icon(Icons.chat_bubble_rounded)
+          ),
         ],
       ),
       body: new TabBarView(

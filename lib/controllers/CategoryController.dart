@@ -6,12 +6,10 @@ import 'package:http/http.dart' as http;
 class CategoryController{
 
   Future<List<Category>> getCategory(String id) async{
-    final String apiUrl = 'http://192.168.1.8:7000/api/category/read/all'; 
+    final String apiUrl = 'http://10.0.2.2:7000/api/category/read/all'; 
     final String id_type = id;
       final response =
           await http.get(Uri.parse('$apiUrl/$id'));
-          print(response.body);
-          print(id);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as List<dynamic>;
         return data.map((json) => Category.fromJson(json)).toList();
