@@ -72,51 +72,7 @@ class Home extends StatelessWidget {
               //--------------------------------------------------------------------
               //Iklan
               //--------------------------------------------------------------------
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                ],
-              ),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                ],
-              ),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                ],
-              )
+              
             ],
           ),
         ),

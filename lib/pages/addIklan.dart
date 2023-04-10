@@ -7,6 +7,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/Category.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 
@@ -173,10 +174,7 @@ class _AddItemState extends State<AddItem> {
             padding: new EdgeInsets.all(10),
               child: new Column(
                 children: <Widget>[
-                  new Align(
-                    alignment: Alignment.topLeft,
-                    child: new Text(widget.category_id, style: new TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.grey[700]),),
-                  ),
+                 
 
                   new Padding(padding: EdgeInsets.only(top: 20)),
                   new Align(
