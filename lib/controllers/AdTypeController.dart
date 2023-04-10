@@ -14,7 +14,6 @@ class AdTypeController {
     } else {
       throw Exception('Failed to load ad type');
     }
-
     return [];
   }
 }

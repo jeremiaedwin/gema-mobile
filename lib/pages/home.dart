@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'detail.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -116,7 +117,7 @@ class Home extends StatelessWidget {
                       judul: "Nasi Goreng",
                       harga: "Rp. 12.000"),
                 ],
-              )
+              ),
             ],
           ),
         ),
@@ -135,7 +136,12 @@ class ListIklan extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Detail()),
+        );
+      },
       child: new Container(
         //height: MediaQuery.of(context).size.height / 3.5,
         width: MediaQuery.of(context).size.width / 2.6,
@@ -181,7 +187,7 @@ class ListIklan extends StatelessWidget {
             //--------------------------------------------------------------------
             new Container(
               height: 15,
-              margin: EdgeInsets.only(top: 5),
+              margin: EdgeInsets.only(top: 5, bottom: 5),
               child: new Align(
                 alignment: Alignment.topLeft,
                 child: new Text(
