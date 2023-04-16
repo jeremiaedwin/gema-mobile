@@ -104,20 +104,20 @@ class _ChatRoomState extends State<ChatRoom> {
   }
 
   void sendMessage(String text){
-    print(text);
-   var messageJson = {
-    "message": text,
-    "sentByMe": socket.id
-   } ;
-   socket.emit('message', messageJson);
-   chatController.chatMessages.add(Chat.fromJson(messageJson));
+  //   print(text);
+  //  var messageJson = {
+  //   "message": text,
+  //   "sentByMe": socket.id
+  //  } ;
+  //  socket.emit('message', messageJson);
+  //  chatController.chatMessages.add(Chat.fromJson(messageJson));
   }
 
   void setUpSocketListener(){
-    socket.on('message-receive', (data) {
-      print(data);
-      chatController.chatMessages.add(Chat.fromJson(data));
-    });
+  //   socket.on('message-receive', (data) {
+  //     print(data);
+  //     chatController.chatMessages.add(Chat.fromJson(data));
+  //   });
   }
 
 
@@ -167,7 +167,7 @@ class _ChatRoomState extends State<ChatRoom> {
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (context, index){
               var currentItem = chatController.chatMessages[index];
-              final String sentByMe = currentItem.sentByMe;
+              final String sentByMe = currentItem.sender_id;
               final String message = currentItem.message;
               return Container(
                 padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
