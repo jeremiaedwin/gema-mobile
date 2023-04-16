@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../main.dart' as MainPage;
 void main() {
   runApp(MyApp());
 }
@@ -8,6 +9,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: LoginPage(),
+      routes: <String, WidgetBuilder>{
+        '/main': (BuildContext context) => new MainPage.MyApp(),
+      },
+      onUnknownRoute: (RouteSettings settings) {
+        // return MaterialPageRoute(builder: (BuildContext context) => UnknownPage());
+      },
     );
   }
 }
@@ -34,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Container(
                   width: 200,
                   height: 150,
-                  child: Image.asset('/images/logo.jpg'),
+                  child: Image.asset('assets/images/logo.jpg'),
                 ),
               ),
             ),
@@ -61,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextButton(
                 onPressed: () {
-                  // Do something when button is pressed
+                  Navigator.pushNamed(context, '/main');
                 },
                 style: TextButton.styleFrom(
                   textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -76,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
                   width: 250,
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Do something when button is pressed
+                    onPressed: () { 
+                      Navigator.pushNamed(context, '/main');
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(1000, 171, 0, 52),

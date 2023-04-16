@@ -70,34 +70,6 @@ class _ChatState extends State<Chat> {
           return SizedBox.shrink();
         }
         },
-        // padding: const EdgeInsets.all(8),
-        // children: <Widget>[
-        //   Card(
-        //     child:ListTile(
-        //     title: Text("Kaizaki Satoru"),
-        //     subtitle: Text("Item masih ada?"),
-        //     leading: CircleAvatar(backgroundImage: AssetImage("assets/images/pp.jpg")),
-        //     trailing: Text("20.00"),
-        //     onTap : (){
-        //              Navigator.push(context,
-        //               new MaterialPageRoute(
-        //                 builder: (context) => new ChatRoom(),
-        //               ),);
-        //             }),
-        //   ),
-          // Card(child:ListTile(
-          //   title: Text("Shintaro Izayak"),
-          //   subtitle: Text("COD pujas"),
-          //   leading: CircleAvatar(backgroundImage: AssetImage("assets/images/pp2.jpg")),
-          //   trailing: Text("19.00"),),
-          // ),
-          // Card(child:ListTile(
-          //   title: Text("Kenshin Yonezu"),
-          //   subtitle: Text("Cek Minus"),
-          //   leading: CircleAvatar(backgroundImage: AssetImage("assets/images/pp3.png")),
-          //   trailing: Text("17.00"),),
-          // ),
-        // ],
       ),
     );
   }
@@ -138,13 +110,13 @@ class _ChatRoomState extends State<ChatRoom> {
     "sentByMe": socket.id
    } ;
    socket.emit('message', messageJson);
-   chatController.chatMessages.add(Message.fromJson(messageJson));
+   chatController.chatMessages.add(Chat.fromJson(messageJson));
   }
 
   void setUpSocketListener(){
     socket.on('message-receive', (data) {
       print(data);
-      chatController.chatMessages.add(Message.fromJson(data));
+      chatController.chatMessages.add(Chat.fromJson(data));
     });
   }
 
@@ -214,28 +186,6 @@ class _ChatRoomState extends State<ChatRoom> {
             },
           ),
           ),
-          // ListView.builder(
-          //   itemCount: 4,
-          //   shrinkWrap: true,
-          //   padding: EdgeInsets.only(top: 10, bottom: 10),
-          //   physics: NeverScrollableScrollPhysics(),
-          //   itemBuilder: (context, index){
-          //     return Container(
-          //       padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
-          //       child: Align(
-          //         alignment: Alignment.topRight,
-          //         child: Container(
-          //           decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(20),
-          //             color: Colors.grey.shade200
-          //           ),
-          //           padding: EdgeInsets.all(16),
-          //           child: Text("test"),
-          //         ),
-          //       ),
-          //     );
-          //   },
-          // ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(

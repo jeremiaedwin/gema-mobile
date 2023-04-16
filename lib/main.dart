@@ -10,7 +10,7 @@ import 'pages/akun.dart' as akun;
 import 'pages/auth.dart' as auth;
 
 void main() {
-  runApp(new MaterialApp(home: new LoginPage(), routes: <String, WidgetBuilder>{
+  runApp(new MaterialApp(home: new MyApp(), routes: <String, WidgetBuilder>{
     '/addItem': (BuildContext context) => new item.AdTypeView(),
     '/chat': (BuildContext context) => new chat.Chat()
   }));
