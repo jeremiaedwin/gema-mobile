@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/search.dart';
-import '../controllers/DetailController.dart';
+import '../widgets/DetailProduk-widgets.dart';
 
 class Detail extends StatelessWidget {
   @override
@@ -57,6 +57,7 @@ class Detail extends StatelessWidget {
 
                   //produk------------------------------------------------------------
                   new Container(
+                      width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.all(20),
                       decoration: new BoxDecoration(
                         border: Border.all(
@@ -118,6 +119,7 @@ class Detail extends StatelessWidget {
 
                   //Deskripsi Produk--------------------------------------------------
                   new Container(
+                    width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.all(20),
                     decoration: new BoxDecoration(
                       border:
@@ -141,6 +143,7 @@ class Detail extends StatelessWidget {
 
                   //Toko--------------------------------------------------
                   new Container(
+                    width: MediaQuery.of(context).size.width,
                     padding: EdgeInsets.all(20),
                     decoration: new BoxDecoration(
                       border:

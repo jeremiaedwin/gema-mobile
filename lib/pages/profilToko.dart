@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/search.dart';
 import 'detail.dart';
-import '../controllers/ProfilTokoController.dart';
-import '../controllers/DetailController.dart';
+import '../widgets/ProfilToko-widgets.dart';
+import '../widgets/DetailProduk-widgets.dart';
 
 class profilToko extends StatelessWidget {
   @override
