@@ -34,14 +34,14 @@ class profilToko extends StatelessWidget {
                 children: [
                   new Container(
                     margin: EdgeInsets.only(right: 20),
-                    child: DataToko(
+                    child: FotoProfile(
                         foto:
                             "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90"),
                   ),
                   new Column(
                     children: <Widget>[
                       new Container(
-                        child: new DataProdukBold(teks: "Warung Teh Nur"),
+                        child: new TextBold(teks: "Warung Teh Nur"),
                       ),
                       Chat()
                     ],

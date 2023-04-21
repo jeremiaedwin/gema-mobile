@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import "../pages/detail.dart";
 import '../pages/profilToko.dart';
 
-class DataProdukNormal extends StatelessWidget {
-  DataProdukNormal({required this.teks});
+class TextNormal extends StatelessWidget {
+  TextNormal({required this.teks});
 
   final String teks;
 
@@ -19,8 +19,8 @@ class DataProdukNormal extends StatelessWidget {
   }
 }
 
-class DataProdukBold extends StatelessWidget {
-  DataProdukBold({required this.teks});
+class TextBold extends StatelessWidget {
+  TextBold({required this.teks});
 
   final String teks;
 
@@ -37,8 +37,8 @@ class DataProdukBold extends StatelessWidget {
   }
 }
 
-class DetailProduk extends StatelessWidget {
-  DetailProduk(
+class DetailInfo extends StatelessWidget {
+  DetailInfo(
       {required this.kondisi, required this.min, required this.kategori});
 
   final String kondisi, min, kategori;
@@ -58,7 +58,7 @@ class DetailProduk extends StatelessWidget {
                     new Text("Kondisi", style: new TextStyle(fontSize: 14.0)),
               ),
             ),
-            new DataProdukNormal(teks: kondisi)
+            new TextNormal(teks: kondisi)
           ],
         ),
         new Row(
@@ -71,7 +71,7 @@ class DetailProduk extends StatelessWidget {
                     style: new TextStyle(fontSize: 14.0)),
               ),
             ),
-            new DataProdukNormal(teks: min)
+            new TextNormal(teks: min)
           ],
         ),
         new Row(
@@ -84,7 +84,7 @@ class DetailProduk extends StatelessWidget {
                     new Text("Kategori", style: new TextStyle(fontSize: 14.0)),
               ),
             ),
-            new DataProdukNormal(teks: kategori)
+            new TextNormal(teks: kategori)
           ],
         )
       ],

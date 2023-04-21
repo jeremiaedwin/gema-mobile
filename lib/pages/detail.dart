@@ -72,10 +72,10 @@ class Detail extends StatelessWidget {
                       child: new Column(
                         children: <Widget>[
                           //harga-----------------------------------------------------
-                          new DataProdukBold(teks: "Rp. 12000"),
+                          new TextBold(teks: "Rp. 12000"),
 
                           //nama------------------------------------------------------
-                          new DataProdukNormal(teks: "Nasi Goreng")
+                          new TextNormal(teks: "Nasi Goreng")
                         ],
                       )),
 
@@ -100,11 +100,10 @@ class Detail extends StatelessWidget {
                           child: new Column(
                             children: <Widget>[
                               new Container(
-                                child:
-                                    new DataProdukBold(teks: "Detail Produk"),
+                                child: new TextBold(teks: "Detail Produk"),
                               ),
                               new Container(
-                                child: DetailProduk(
+                                child: DetailInfo(
                                   kondisi: "Baru",
                                   min: "1",
                                   kategori: "Makanan",
@@ -133,8 +132,8 @@ class Detail extends StatelessWidget {
                     ),
                     child: new Column(
                       children: [
-                        new DataProdukBold(teks: "Deskripsi Produk"),
-                        new DataProdukNormal(
+                        new TextBold(teks: "Deskripsi Produk"),
+                        new TextNormal(
                             teks:
                                 "Nasi goreng kualitas terbaik, harga bersahabat, tersedia dalam beberapa jenis"),
                       ],
@@ -168,8 +167,7 @@ class Detail extends StatelessWidget {
                                           "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90"),
                                 ),
                                 new Container(
-                                  child: new DataProdukBold(
-                                      teks: "Warung Teh Nur"),
+                                  child: new TextBold(teks: "Warung Teh Nur"),
                                 )
                               ],
                             ),
