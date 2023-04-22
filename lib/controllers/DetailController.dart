@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import "../pages/detail.dart";
 import '../pages/profilToko.dart';
@@ -108,8 +109,9 @@ class FotoToko extends StatelessWidget {
         },
         child: ClipOval(
           //no need to provide border radius to make circular image
-          child: Image(
-            image: new NetworkImage(foto),
+          child: new CachedNetworkImage(
+                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  imageUrl: foto,
             height: 50.0,
             width: 50.0,
             fit: BoxFit.cover, //change image fill type

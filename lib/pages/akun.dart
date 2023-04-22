@@ -53,7 +53,6 @@ class Akun extends StatelessWidget {
             child: new Container(
                 padding: EdgeInsets.all(20),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 12,
                 decoration: new BoxDecoration(
                   border: Border.all(color: Color.fromARGB(100, 128, 128, 128)),
                   borderRadius: new BorderRadius.all(
@@ -78,7 +77,6 @@ class Akun extends StatelessWidget {
             child: new Container(
                 padding: EdgeInsets.all(20),
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height / 12,
                 decoration: new BoxDecoration(
                   border: Border.all(color: Color.fromARGB(100, 128, 128, 128)),
                   borderRadius: new BorderRadius.all(

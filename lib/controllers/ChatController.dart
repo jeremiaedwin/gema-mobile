@@ -7,13 +7,13 @@ import 'dart:async';
 import 'dart:convert';
 
 class ChatController extends GetxController{
-  var chatMessages = <Chat>[].obs;
+  var chatMessages = <Message>[].obs;
 
-  static Future<void> addChat(Map<String, dynamic> chat) async {
-    final response = await http.post(Uri.parse('localhost:7000/api/chat/create'),
-        body: jsonEncode(chat), headers: {'Content-Type': 'application/json'});
-    if (response.statusCode != 200) {
-      throw Exception('Failed to add chat');
-    }
-  }
+  // static Future<void> addChat(Map<String, dynamic> chat) async {
+  //   final response = await http.post(Uri.parse('localhost:7000/api/chat/create'),
+  //       body: jsonEncode(chat), headers: {'Content-Type': 'application/json'});
+  //   if (response.statusCode != 200) {
+  //     throw Exception('Failed to add chat');
+  //   }
+  // }
 }
