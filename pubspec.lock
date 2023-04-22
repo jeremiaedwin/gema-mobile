@@ -16,7 +16,6 @@ packages:
       sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
     version: "2.1.0"
   cached_network_image:
     dependency: "direct main"
@@ -39,9 +38,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-=======
-    version: "2.1.1"
->>>>>>> 6ab5f764ff6da93d4bab2d2eede08276947719a3
   characters:
     dependency: transitive
     description:
@@ -452,25 +448,7 @@ packages:
       sha256: dd904f795d4b4f3b870833847c461801f6750a9fa8e61ea5ac53f9422b31f250
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "1.9.0"
-  sqflite:
-    dependency: transitive
-    description:
-      name: sqflite
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.6"
-  sqflite_common:
-    dependency: transitive
-    description:
-      name: sqflite_common
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.4.3"
-=======
     version: "1.9.1"
->>>>>>> 6ab5f764ff6da93d4bab2d2eede08276947719a3
   stack_trace:
     dependency: transitive
     description:
@@ -494,18 +472,7 @@ packages:
       sha256: "556692adab6cfa87322a115640c11f13cb77b3f076ddcc5d6ae3c20242bedcde"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
-    version: "1.1.1"
-  synchronized:
-    dependency: transitive
-    description:
-      name: synchronized
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.1"
-=======
     version: "1.2.0"
->>>>>>> 6ab5f764ff6da93d4bab2d2eede08276947719a3
   term_glyph:
     dependency: transitive
     description:
