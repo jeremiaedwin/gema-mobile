@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../pages/profilToko.dart';
 
-class DataToko extends StatelessWidget {
-  DataToko({required this.foto});
+class FotoProfile extends StatelessWidget {
+  FotoProfile({required this.foto});
 
   final String foto;
 

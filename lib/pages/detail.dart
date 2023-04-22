@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import '../controllers/AdController.dart';
+import '../controllers/DetailController.dart';
 import '../models/Ad.dart';
 import '../models/AdDetail.dart';
 import '../widgets/search.dart';
-import '../controllers/DetailController.dart';
+import '../widgets/DetailProduk-widgets.dart' as detail;
 
 class Detail extends StatefulWidget {
   const Detail({
@@ -192,7 +193,7 @@ class _DetailState extends State<Detail> {
                                     children: <Widget>[
                                       new Container(
                                         margin: EdgeInsets.only(right: 20),
-                                        child: FotoToko(
+                                        child: new FotoToko(
                                             foto:
                                                 ad.avatar),
                                       ),

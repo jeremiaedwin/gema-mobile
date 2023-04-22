@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gema_app/pages/setting.dart';
-import '../controllers/AkunController.dart';
+import 'package:gema_app/pages/setting/kelolaAkun.dart';
+import '../pages/setting/editUsername.dart';
+import '../widgets/Akun-widgets.dart';
 import '../pages/produk.dart';
 
 class Akun extends StatelessWidget {
@@ -71,7 +72,7 @@ class Akun extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => setting()),
+                MaterialPageRoute(builder: (context) => KelolaAkun()),
               );
             },
             child: new Container(
