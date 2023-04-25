@@ -27,10 +27,10 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return new InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => profilToko()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => profilToko()),
+        // );
       },
       child: new Container(
         margin: EdgeInsets.only(top: 5),

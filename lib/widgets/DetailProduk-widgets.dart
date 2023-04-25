@@ -102,10 +102,10 @@ class FotoToko extends StatelessWidget {
   Widget build(BuildContext context) {
     return new InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => profilToko()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => profilToko()),
+          // );
         },
         child: ClipOval(
           //no need to provide border radius to make circular image
@@ -127,10 +127,10 @@ class HubungiPenjual extends StatelessWidget {
   Widget build(BuildContext context) {
     return new InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => profilToko()),
-          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => profilToko()),
+          // );
         },
         child: new Container(
           padding: EdgeInsets.all(10),

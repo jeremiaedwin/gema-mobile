@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import '../controllers/AdController.dart';
-import '../controllers/DetailController.dart';
 import '../models/Ad.dart';
 import '../models/AdDetail.dart';
 import '../widgets/search.dart';
-import '../widgets/DetailProduk-widgets.dart' as detail;
+import '../widgets/DetailProduk-widgets.dart' as DetailWidget;
 
 class Detail extends StatefulWidget {
   const Detail({
@@ -103,10 +102,10 @@ class _DetailState extends State<Detail> {
                           child: new Column(
                             children: <Widget>[
                               //harga-----------------------------------------------------
-                              new DataProdukBold(teks: "Rp. " + ad.price),
+                              new DetailWidget.TextBold(teks: "Rp. " + ad.price),
 
                               //nama------------------------------------------------------
-                              new DataProdukNormal(teks: ad.title)
+                              new DetailWidget.TextNormal(teks: ad.title)
                             ],
                           )
                         ),
@@ -132,11 +131,11 @@ class _DetailState extends State<Detail> {
                                 child: new Column(
                                   children: <Widget>[
                                     new Container(
-                                      child: new DataProdukBold(
+                                      child: new DetailWidget.TextBold(
                                           teks: "Detail Produk"),
                                     ),
                                     new Container(
-                                      child: DetailProduk(
+                                      child: DetailWidget.DetailInfo(
                                         kondisi: ad.condition,
                                         min: "1",
                                         kategori: ad.category,
@@ -164,8 +163,8 @@ class _DetailState extends State<Detail> {
                           ),
                           child: new Column(
                             children: [
-                              new DataProdukBold(teks: "Deskripsi Produk"),
-                              new DataProdukNormal(
+                              new DetailWidget.TextBold(teks: "Deskripsi Produk"),
+                              new DetailWidget.TextNormal(
                                   teks:
                                       ad.description),
                             ],
@@ -193,12 +192,12 @@ class _DetailState extends State<Detail> {
                                     children: <Widget>[
                                       new Container(
                                         margin: EdgeInsets.only(right: 20),
-                                        child: new FotoToko(
+                                        child: new DetailWidget.FotoToko(
                                             foto:
                                                 ad.avatar),
                                       ),
                                       new Container(
-                                        child: new DataProdukBold(
+                                        child: new DetailWidget.TextBold(
                                             teks: ad.nama),
                                       )
                                     ],
@@ -223,7 +222,7 @@ class _DetailState extends State<Detail> {
                             ),
                             color: Colors.white,
                           ),
-                          child: HubungiPenjual(),
+                          child: DetailWidget.HubungiPenjual(),
                         )
 
                       ],

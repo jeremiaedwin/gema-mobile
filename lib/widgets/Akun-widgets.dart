@@ -165,7 +165,7 @@ class DetailInfoProfile extends StatelessWidget {
                     color: Color.fromARGB(255, 165, 165, 165)),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EditNama()));
+                      MaterialPageRoute(builder: (context) => EditNama(full_name: nama, nim: nim,)));
                 },
               ),
             ],

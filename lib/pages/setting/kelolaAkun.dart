@@ -6,6 +6,20 @@ import '../../widgets/DetailProduk-widgets.dart';
 import '../../widgets/Akun-widgets.dart';
 
 class KelolaAkun extends StatefulWidget {
+  final String full_name;
+  final String email;
+  final String nim;
+  final String phone_number;
+  final String username;
+  final String avatar;
+
+  KelolaAkun({
+    required this.full_name,
+    required this.email,
+    required this.nim,
+    required this.phone_number,
+    required this.username, required this.avatar,
+  });
   @override
   _FormPageState createState() => _FormPageState();
 }
@@ -60,7 +74,7 @@ class _FormPageState extends State<KelolaAkun> {
                           EdgeInsets.only(right: 120, left: 120, bottom: 20),
                       child: FotoProfile(
                           foto:
-                              "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90"),
+                              widget.avatar),
                     ),
                     //endfoto---------------------------------------------------
 
@@ -97,11 +111,11 @@ class _FormPageState extends State<KelolaAkun> {
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: DetailInfoProfile(
-                      nim: "211511050",
-                      username: "nasrullohfajar",
-                      nama: "Nasrulloh Fajar Muharam",
-                      email: "nasrulloh.fajar.tif21@polban.ac.id",
-                      telpon: "082120092578",
+                      nim: widget.nim,
+                      username: widget.username,
+                      nama: widget.full_name,
+                      email: widget.email,
+                      telpon: widget.phone_number,
                     ),
                   )
                 ],

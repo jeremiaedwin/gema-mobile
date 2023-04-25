@@ -107,7 +107,6 @@ class _HomeState extends State<Home> {
               itemCount: _adList.length,
               itemBuilder: (context, index) {
                 final ad = _adList[index];
-                print(ad.image);
                 return new Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
