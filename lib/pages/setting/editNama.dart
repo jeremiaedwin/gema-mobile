@@ -3,6 +3,13 @@ import 'package:gema_app/widgets/DetailProduk-widgets.dart';
 import '../../widgets/Akun-widgets.dart';
 
 class EditNama extends StatefulWidget {
+  final String full_name;
+  final String nim;
+
+  EditNama({
+    required this.full_name,
+    required this.nim
+  });
   @override
   _FormPageState createState() => _FormPageState();
 }
@@ -44,7 +51,7 @@ class _FormPageState extends State<EditNama> {
                 children: [
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Nama',
+                      labelText: widget.full_name,
                       border: OutlineInputBorder(),
                     ),
                   ),

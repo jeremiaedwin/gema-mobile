@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import '../controllers/AdController.dart';
-import '../widgets/DetailProduk-widgets.dart';
 import '../models/Ad.dart';
 import '../models/AdDetail.dart';
 import '../widgets/search.dart';
-import '../widgets/DetailProduk-widgets.dart' as detail;
+import '../widgets/DetailProduk-widgets.dart' as DetailWidget;
 
 class Detail extends StatefulWidget {
   const Detail({
@@ -42,21 +41,6 @@ class _DetailState extends State<Detail> {
           "Detail Produk",
           style: TextStyle(fontSize: 14.0, color: Colors.white),
         ),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: CustomSearchDelegate(),
-                );
-              },
-              icon: const Icon(Icons.search)),
-          IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/addItem');
-              },
-              icon: const Icon(Icons.add)),
-        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -106,11 +90,12 @@ class _DetailState extends State<Detail> {
                                   child: new Column(
                                     children: <Widget>[
                                       //harga-----------------------------------------------------
-                                      new DataProdukBold(
+                                      new DetailWidget.TextBold(
                                           teks: "Rp. " + ad.price),
 
                                       //nama------------------------------------------------------
-                                      new DataProdukNormal(teks: ad.title)
+                                      new DetailWidget.TextNormal(
+                                          teks: ad.title)
                                     ],
                                   )),
 
@@ -136,11 +121,11 @@ class _DetailState extends State<Detail> {
                                       child: new Column(
                                         children: <Widget>[
                                           new Container(
-                                            child: new DataProdukBold(
+                                            child: new DetailWidget.TextBold(
                                                 teks: "Detail Produk"),
                                           ),
                                           new Container(
-                                            child: DetailProduk(
+                                            child: DetailWidget.DetailInfo(
                                               kondisi: ad.condition,
                                               min: "1",
                                               kategori: ad.category,
@@ -148,6 +133,153 @@ class _DetailState extends State<Detail> {
                                           )
                                         ],
                                       ),
+                                    ),
+
+                                    new Container(
+                                        padding: EdgeInsets.all(20),
+                                        decoration: new BoxDecoration(
+                                          border: Border.all(
+                                              color: Color.fromARGB(
+                                                  100, 128, 128, 128)),
+                                          borderRadius: new BorderRadius.all(
+                                            new Radius.circular(
+                                              5.0,
+                                            ),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                        child: new Column(
+                                          children: <Widget>[
+                                            //harga-----------------------------------------------------
+                                            DetailWidget.TextBold(
+                                                teks: "Rp. " + ad.price),
+
+                                            //nama------------------------------------------------------
+                                            DetailWidget.TextNormal(
+                                                teks: ad.title)
+                                          ],
+                                        )),
+
+                                    // Detail Produk-----------------------------------------------------
+                                    new Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: new Column(
+                                        children: <Widget>[
+                                          //Detail produk kategori
+                                          new Container(
+                                            margin: EdgeInsets.all(20),
+                                            child: new Column(
+                                              children: <Widget>[
+                                                new Container(
+                                                  child: DetailWidget.TextBold(
+                                                      teks: "Detail Produk"),
+                                                ),
+                                                new Container(
+                                                  child:
+                                                      DetailWidget.DetailInfo(
+                                                    kondisi: ad.condition,
+                                                    min: "1",
+                                                    kategori: ad.category,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+
+                                    //Deskripsi Produk--------------------------------------------------
+                                    new Container(
+                                      padding: EdgeInsets.all(20),
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: new Column(
+                                        children: [
+                                          DetailWidget.TextBold(
+                                              teks: "Deskripsi Produk"),
+                                          DetailWidget.TextNormal(
+                                              teks: ad.description),
+                                        ],
+                                      ),
+                                    ),
+
+                                    //Toko--------------------------------------------------
+                                    new Container(
+                                      padding: EdgeInsets.all(20),
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: new Container(
+                                        child: new Column(
+                                          children: <Widget>[
+                                            new Container(
+                                              child: new Row(
+                                                children: <Widget>[
+                                                  new Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 20),
+                                                    child: new DetailWidget
+                                                            .FotoToko(
+                                                        foto: ad.avatar),
+                                                  ),
+                                                  new Container(
+                                                    child:
+                                                        DetailWidget.TextBold(
+                                                            teks: ad.nama),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    //Hubungi Penjual---------------------------------------------------
+                                    new Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.all(20),
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: DetailWidget.HubungiPenjual(),
                                     )
                                   ],
                                 ),
@@ -169,9 +301,10 @@ class _DetailState extends State<Detail> {
                                 ),
                                 child: new Column(
                                   children: [
-                                    new DataProdukBold(
+                                    new DetailWidget.TextBold(
                                         teks: "Deskripsi Produk"),
-                                    new DataProdukNormal(teks: ad.description),
+                                    new DetailWidget.TextNormal(
+                                        teks: ad.description),
                                   ],
                                 ),
                               ),
@@ -199,11 +332,11 @@ class _DetailState extends State<Detail> {
                                             new Container(
                                               margin:
                                                   EdgeInsets.only(right: 20),
-                                              child:
-                                                  new FotoToko(foto: ad.avatar),
+                                              child: new DetailWidget.FotoToko(
+                                                  foto: ad.avatar),
                                             ),
                                             new Container(
-                                              child: new DataProdukBold(
+                                              child: new DetailWidget.TextBold(
                                                   teks: ad.nama),
                                             )
                                           ],
@@ -229,7 +362,7 @@ class _DetailState extends State<Detail> {
                                   ),
                                   color: Colors.white,
                                 ),
-                                child: HubungiPenjual(),
+                                child: DetailWidget.HubungiPenjual(),
                               )
                             ],
                           ),

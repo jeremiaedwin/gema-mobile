@@ -23,9 +23,7 @@ class OpsiProduk extends StatelessWidget {
           color: Colors.white,
         ),
         child: new InkWell(
-          onTap: () {
-            _showDropdown(context);
-          },
+          onTap: () {},
           child: Row(
             children: [
               //foto-produk---------------------------------------------------------
@@ -49,30 +47,4 @@ class OpsiProduk extends StatelessWidget {
           ),
         ));
   }
-}
-
-void _showDropdown(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        content: Container(
-          width: double.maxFinite,
-          child: DropdownButton<String>(
-            value: _selectedItem,
-            items: [
-              DropdownMenuItem(child: Text('Item 1'), value: 'item_1'),
-              DropdownMenuItem(child: Text('Item 2'), value: 'item_2'),
-              DropdownMenuItem(child: Text('Item 3'), value: 'item_3'),
-            ],
-            onChanged: (String? value) {
-              setState(() {
-                _selectedItem = value;
-              });
-            },
-          ),
-        ),
-      );
-    },
-  );
 }

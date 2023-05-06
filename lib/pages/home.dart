@@ -1,7 +1,34 @@
 import 'package:flutter/material.dart';
 import 'detail.dart';
+import '../controllers/AdController.dart';
+import '../models/Ad.dart';
+import 'adByCategory.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  AdController _adController = AdController();
+  List<Ad> _adList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  Future<void> _getData() async {
+    final data = await _adController.getData();
+    setState(() {
+      _adList = data.cast<Ad>();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -19,7 +46,15 @@ class Home extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const AdByCategory(
+                                      category_id: '1',
+                                    )),
+                          );
+                        },
                         icon: const Icon(
                           Icons.card_giftcard,
                           color: Color.fromARGB(255, 52, 53, 57),
@@ -73,51 +108,42 @@ class Home extends StatelessWidget {
               //--------------------------------------------------------------------
               //Iklan
               //--------------------------------------------------------------------
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                ],
-              ),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                ],
-              ),
-              new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                  new ListIklan(
-                      foto:
-                          "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90",
-                      judul: "Nasi Goreng",
-                      harga: "Rp. 12.000"),
-                ],
-              ),
+              //new Text(_adList.toString()),
+              new ListView.builder(
+                physics: BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount:
+                    _adList.length ~/ 2, // jumlah baris = jumlah iklan dibagi 2
+                itemBuilder: (context, index) {
+                  final int firstIndex = index * 2;
+                  final int secondIndex = firstIndex + 1;
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Menampilkan iklan pertama
+                      Expanded(
+                        child: ListIklan(
+                          ad_id: _adList[firstIndex].ad_id,
+                          foto: _adList[firstIndex].image,
+                          judul: _adList[firstIndex].title,
+                          harga: _adList[firstIndex].price.toString(),
+                        ),
+                      ),
+
+                      // Jika ada iklan kedua, menampilkannya di kolom kedua
+                      if (secondIndex < _adList.length)
+                        Expanded(
+                          child: ListIklan(
+                            ad_id: _adList[secondIndex].ad_id,
+                            foto: _adList[secondIndex].image,
+                            judul: _adList[secondIndex].title,
+                            harga: _adList[secondIndex].price.toString(),
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              )
             ],
           ),
         ),
@@ -127,8 +153,12 @@ class Home extends StatelessWidget {
 }
 
 class ListIklan extends StatelessWidget {
-  ListIklan({required this.foto, required this.judul, required this.harga});
-
+  ListIklan(
+      {required this.foto,
+      required this.judul,
+      required this.harga,
+      required this.ad_id});
+  final String ad_id;
   final String foto;
   final String judul;
   final String harga;
@@ -139,7 +169,7 @@ class ListIklan extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Detail()),
+          MaterialPageRoute(builder: (context) => new Detail(ad_id: ad_id)),
         );
       },
       child: new Container(
@@ -162,13 +192,18 @@ class ListIklan extends StatelessWidget {
             //foto
             //--------------------------------------------------------------------
             new Container(
-              child: new Image(
-                image: new NetworkImage(foto),
+              child: CachedNetworkImage(
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                imageUrl: foto,
+                height: 100,
+                fit: BoxFit.cover,
               ),
             ),
             //--------------------------------------------------------------------
             //judul
             //--------------------------------------------------------------------
+
             new Container(
               //height: MediaQuery.of(context).size.height / 4.3,
               //width: MediaQuery.of(context).size.width / 2.5,
