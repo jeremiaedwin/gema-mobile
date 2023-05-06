@@ -4,7 +4,7 @@ import '../controllers/UserController.dart';
 import '../models/Profile.dart';
 import '../pages/setting/editUsername.dart';
 import '../widgets/Akun-widgets.dart';
-import '../pages/produk.dart';
+import '../pages/setting/KelolaProduk.dart';
 
 class Akun extends StatefulWidget {
   @override
@@ -76,7 +76,7 @@ class _AkunState extends State<Akun> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => produk()),
+                MaterialPageRoute(builder: (context) => KelolaProduk()),
               );
             },
             child: new Container(

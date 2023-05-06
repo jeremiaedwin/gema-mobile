@@ -35,205 +35,344 @@ class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: new AppBar(
-          backgroundColor: Color.fromARGB(1000, 171, 0, 52),
-          title: new Text(
-            "Detail Produk",
-            style: TextStyle(fontSize: 14.0, color: Colors.white),
-          ),
-          actions: <Widget>[
-            IconButton(
-                onPressed: () {
-                  showSearch(
-                    context: context,
-                    delegate: CustomSearchDelegate(),
-                  );
-                },
-                icon: const Icon(Icons.search)),
-            IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/addItem');
-                },
-                icon: const Icon(Icons.add)),
-          ],
+      appBar: new AppBar(
+        backgroundColor: Color.fromARGB(1000, 171, 0, 52),
+        title: new Text(
+          "Detail Produk",
+          style: TextStyle(fontSize: 14.0, color: Colors.white),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: _data.map((ad) => Container(
-              child: Column(
-                children: <Widget>[
-                  new Container(
-                    child: new Column(
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: _data
+              .map((ad) => Container(
+                    child: Column(
                       children: <Widget>[
-
-                        //gambar produk-----------------------------------------------------
                         new Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height / 4,
-                          decoration: new BoxDecoration(
-                            border: Border.all(color: Color.fromARGB(100, 128, 128, 128)),
-                            borderRadius: new BorderRadius.all(
-                              new Radius.circular(
-                                5.0,
-                              ),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: new Image(
-                            image: new NetworkImage(
-                              ad.image,
-                            ),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-
-                        new Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: new BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(100, 128, 128, 128)),
-                            borderRadius: new BorderRadius.all(
-                              new Radius.circular(
-                                5.0,
-                              ),
-                            ),
-                            color: Colors.white,
-                          ),
                           child: new Column(
                             children: <Widget>[
-                              //harga-----------------------------------------------------
-                              new DetailWidget.TextBold(teks: "Rp. " + ad.price),
-
-                              //nama------------------------------------------------------
-                              new DetailWidget.TextNormal(teks: ad.title)
-                            ],
-                          )
-                        ),
-
-                        // Detail Produk-----------------------------------------------------
-                        new Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: new BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(100, 128, 128, 128)),
-                            borderRadius: new BorderRadius.all(
-                              new Radius.circular(
-                                5.0,
-                              ),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: new Column(
-                            children: <Widget>[
-                              //Detail produk kategori
+                              //gambar produk-----------------------------------------------------
                               new Container(
-                                margin: EdgeInsets.all(20),
+                                width: MediaQuery.of(context).size.width,
+                                height: MediaQuery.of(context).size.height / 4,
+                                decoration: new BoxDecoration(
+                                  border: Border.all(
+                                      color:
+                                          Color.fromARGB(100, 128, 128, 128)),
+                                  borderRadius: new BorderRadius.all(
+                                    new Radius.circular(
+                                      5.0,
+                                    ),
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: new Image(
+                                  image: new NetworkImage(
+                                    ad.image,
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+
+                              new Container(
+                                  padding: EdgeInsets.all(20),
+                                  decoration: new BoxDecoration(
+                                    border: Border.all(
+                                        color:
+                                            Color.fromARGB(100, 128, 128, 128)),
+                                    borderRadius: new BorderRadius.all(
+                                      new Radius.circular(
+                                        5.0,
+                                      ),
+                                    ),
+                                    color: Colors.white,
+                                  ),
+                                  child: new Column(
+                                    children: <Widget>[
+                                      //harga-----------------------------------------------------
+                                      new DetailWidget.TextBold(
+                                          teks: "Rp. " + ad.price),
+
+                                      //nama------------------------------------------------------
+                                      new DetailWidget.TextNormal(
+                                          teks: ad.title)
+                                    ],
+                                  )),
+
+                              // Detail Produk-----------------------------------------------------
+                              new Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: new BoxDecoration(
+                                  border: Border.all(
+                                      color:
+                                          Color.fromARGB(100, 128, 128, 128)),
+                                  borderRadius: new BorderRadius.all(
+                                    new Radius.circular(
+                                      5.0,
+                                    ),
+                                  ),
+                                  color: Colors.white,
+                                ),
                                 child: new Column(
                                   children: <Widget>[
+                                    //Detail produk kategori
                                     new Container(
-                                      child: new DetailWidget.TextBold(
-                                          teks: "Detail Produk"),
-                                    ),
-                                    new Container(
-                                      child: DetailWidget.DetailInfo(
-                                        kondisi: ad.condition,
-                                        min: "1",
-                                        kategori: ad.category,
+                                      margin: EdgeInsets.all(20),
+                                      child: new Column(
+                                        children: <Widget>[
+                                          new Container(
+                                            child: new DetailWidget.TextBold(
+                                                teks: "Detail Produk"),
+                                          ),
+                                          new Container(
+                                            child: DetailWidget.DetailInfo(
+                                              kondisi: ad.condition,
+                                              min: "1",
+                                              kategori: ad.category,
+                                            ),
+                                          )
+                                        ],
                                       ),
+                                    ),
+
+                                    new Container(
+                                        padding: EdgeInsets.all(20),
+                                        decoration: new BoxDecoration(
+                                          border: Border.all(
+                                              color: Color.fromARGB(
+                                                  100, 128, 128, 128)),
+                                          borderRadius: new BorderRadius.all(
+                                            new Radius.circular(
+                                              5.0,
+                                            ),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                        child: new Column(
+                                          children: <Widget>[
+                                            //harga-----------------------------------------------------
+                                            DetailWidget.TextBold(
+                                                teks: "Rp. " + ad.price),
+
+                                            //nama------------------------------------------------------
+                                            DetailWidget.TextNormal(
+                                                teks: ad.title)
+                                          ],
+                                        )),
+
+                                    // Detail Produk-----------------------------------------------------
+                                    new Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: new Column(
+                                        children: <Widget>[
+                                          //Detail produk kategori
+                                          new Container(
+                                            margin: EdgeInsets.all(20),
+                                            child: new Column(
+                                              children: <Widget>[
+                                                new Container(
+                                                  child: DetailWidget.TextBold(
+                                                      teks: "Detail Produk"),
+                                                ),
+                                                new Container(
+                                                  child:
+                                                      DetailWidget.DetailInfo(
+                                                    kondisi: ad.condition,
+                                                    min: "1",
+                                                    kategori: ad.category,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+
+                                    //Deskripsi Produk--------------------------------------------------
+                                    new Container(
+                                      padding: EdgeInsets.all(20),
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: new Column(
+                                        children: [
+                                          DetailWidget.TextBold(
+                                              teks: "Deskripsi Produk"),
+                                          DetailWidget.TextNormal(
+                                              teks: ad.description),
+                                        ],
+                                      ),
+                                    ),
+
+                                    //Toko--------------------------------------------------
+                                    new Container(
+                                      padding: EdgeInsets.all(20),
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: new Container(
+                                        child: new Column(
+                                          children: <Widget>[
+                                            new Container(
+                                              child: new Row(
+                                                children: <Widget>[
+                                                  new Container(
+                                                    margin: EdgeInsets.only(
+                                                        right: 20),
+                                                    child: new DetailWidget
+                                                            .FotoToko(
+                                                        foto: ad.avatar),
+                                                  ),
+                                                  new Container(
+                                                    child:
+                                                        DetailWidget.TextBold(
+                                                            teks: ad.nama),
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                    //Hubungi Penjual---------------------------------------------------
+                                    new Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.all(20),
+                                      decoration: new BoxDecoration(
+                                        border: Border.all(
+                                            color: Color.fromARGB(
+                                                100, 128, 128, 128)),
+                                        borderRadius: new BorderRadius.all(
+                                          new Radius.circular(
+                                            5.0,
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                      ),
+                                      child: DetailWidget.HubungiPenjual(),
                                     )
                                   ],
                                 ),
+                              ),
+
+                              //Deskripsi Produk--------------------------------------------------
+                              new Container(
+                                padding: EdgeInsets.all(20),
+                                decoration: new BoxDecoration(
+                                  border: Border.all(
+                                      color:
+                                          Color.fromARGB(100, 128, 128, 128)),
+                                  borderRadius: new BorderRadius.all(
+                                    new Radius.circular(
+                                      5.0,
+                                    ),
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: new Column(
+                                  children: [
+                                    new DetailWidget.TextBold(
+                                        teks: "Deskripsi Produk"),
+                                    new DetailWidget.TextNormal(
+                                        teks: ad.description),
+                                  ],
+                                ),
+                              ),
+
+                              //Toko--------------------------------------------------
+                              new Container(
+                                padding: EdgeInsets.all(20),
+                                decoration: new BoxDecoration(
+                                  border: Border.all(
+                                      color:
+                                          Color.fromARGB(100, 128, 128, 128)),
+                                  borderRadius: new BorderRadius.all(
+                                    new Radius.circular(
+                                      5.0,
+                                    ),
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: new Container(
+                                  child: new Column(
+                                    children: <Widget>[
+                                      new Container(
+                                        child: new Row(
+                                          children: <Widget>[
+                                            new Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 20),
+                                              child: new DetailWidget.FotoToko(
+                                                  foto: ad.avatar),
+                                            ),
+                                            new Container(
+                                              child: new DetailWidget.TextBold(
+                                                  teks: ad.nama),
+                                            )
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              //Hubungi Penjual---------------------------------------------------
+                              new Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.all(20),
+                                decoration: new BoxDecoration(
+                                  border: Border.all(
+                                      color:
+                                          Color.fromARGB(100, 128, 128, 128)),
+                                  borderRadius: new BorderRadius.all(
+                                    new Radius.circular(
+                                      5.0,
+                                    ),
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: DetailWidget.HubungiPenjual(),
                               )
                             ],
                           ),
                         ),
-
-                        //Deskripsi Produk--------------------------------------------------
-                        new Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: new BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(100, 128, 128, 128)),
-                            borderRadius: new BorderRadius.all(
-                              new Radius.circular(
-                                5.0,
-                              ),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: new Column(
-                            children: [
-                              new DetailWidget.TextBold(teks: "Deskripsi Produk"),
-                              new DetailWidget.TextNormal(
-                                  teks:
-                                      ad.description),
-                            ],
-                          ),
-                        ),
-
-                        //Toko--------------------------------------------------
-                        new Container(
-                          padding: EdgeInsets.all(20),
-                          decoration: new BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(100, 128, 128, 128)),
-                            borderRadius: new BorderRadius.all(
-                              new Radius.circular(
-                                5.0,
-                              ),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: new Container(
-                            child: new Column(
-                              children: <Widget>[
-                                new Container(
-                                  child: new Row(
-                                    children: <Widget>[
-                                      new Container(
-                                        margin: EdgeInsets.only(right: 20),
-                                        child: new DetailWidget.FotoToko(
-                                            foto:
-                                                ad.avatar),
-                                      ),
-                                      new Container(
-                                        child: new DetailWidget.TextBold(
-                                            teks: ad.nama),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        //Hubungi Penjual---------------------------------------------------
-                        new Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.all(20),
-                          decoration: new BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(100, 128, 128, 128)),
-                            borderRadius: new BorderRadius.all(
-                              new Radius.circular(
-                                5.0,
-                              ),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: DetailWidget.HubungiPenjual(),
-                        )
-
                       ],
                     ),
-                  ),
-                ],
-              ),
-            )).toList(),
-          ),
+                  ))
+              .toList(),
         ),
+      ),
     );
   }
 }
-

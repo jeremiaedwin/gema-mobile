@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class ChatController extends GetxController{
+class ChatController extends GetxController {
   // var chatMessages = <Message>[].obs;
 
   // static Future<void> addChat(Map<String, dynamic> chat) async {
@@ -18,26 +18,23 @@ class ChatController extends GetxController{
   //   }
   // }
 
-  Future<List<Contact>> getContact() async{
-    final String apiUrl = 'http://10.0.2.2:8080/api/chat/contact'; 
+  Future<List<Contact>> getContact() async {
+    final String apiUrl = 'http://192.168.231.2:8080/api/chat/contact';
     final response = await http.get(Uri.parse('$apiUrl'));
     print(response.statusCode);
     if (response.statusCode == 200) {
-        final data = jsonDecode(response.body) as List<dynamic>;
-        return data.map((json) => Contact.fromJson(json)).toList();
-    }else{
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data.map((json) => Contact.fromJson(json)).toList();
+    } else {
       throw Exception('Failed to load ad Contact');
     }
 
     return [];
   }
 
-  Future<void> sendMessage(
-      String? ad_id,
-      String message,
-      String receiver_id,
+  Future<void> sendMessage(String? ad_id, String message, String receiver_id,
       String sender_id) async {
-    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/chat/create');
+    final apiUrl = Uri.parse('http://192.168.231.2:8080/api/chat/create');
     final headers = {'Content-Type': 'application/json'};
       final data = <String, dynamic>{
       'message': message,
@@ -47,10 +44,11 @@ class ChatController extends GetxController{
     };
     if (ad_id != null) {
       data['ad_id'] = ad_id;
-    }else{
+    } else {
       data['ad_id'] = null;
     }
-    final response = await http.post(apiUrl, headers: headers, body: jsonEncode(data));
+    final response =
+        await http.post(apiUrl, headers: headers, body: jsonEncode(data));
     print(response.statusCode);
     if (response.statusCode == 200) {
       // Successful request

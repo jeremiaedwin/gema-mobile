@@ -21,12 +21,14 @@ class _HomeState extends State<Home> {
     super.initState();
     _getData();
   }
+
   Future<void> _getData() async {
     final data = await _adController.getData();
     setState(() {
       _adList = data.cast<Ad>();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -44,10 +46,15 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     IconButton(
-                        onPressed: () {Navigator.push(
+                        onPressed: () {
+                          Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const AdByCategory(category_id: '1',)),
-                          );},
+                            MaterialPageRoute(
+                                builder: (context) => const AdByCategory(
+                                      category_id: '1',
+                                    )),
+                          );
+                        },
                         icon: const Icon(
                           Icons.card_giftcard,
                           color: Color.fromARGB(255, 52, 53, 57),
@@ -101,27 +108,42 @@ class _HomeState extends State<Home> {
               //--------------------------------------------------------------------
               //Iklan
               //--------------------------------------------------------------------
-              // new Text(_adList.toString()),
+              //new Text(_adList.toString()),
               new ListView.builder(
+                physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
-              itemCount: _adList.length,
-              itemBuilder: (context, index) {
-                final ad = _adList[index];
-                return new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    ListIklan(
-                    ad_id: ad.ad_id,
-                    foto: ad.image,
-                    judul: ad.title,
-                    harga: ad.price.toString(),
-                  ),
-                  
-            ],
-                );
-              },
-            ),
-              
+                itemCount:
+                    _adList.length ~/ 2, // jumlah baris = jumlah iklan dibagi 2
+                itemBuilder: (context, index) {
+                  final int firstIndex = index * 2;
+                  final int secondIndex = firstIndex + 1;
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Menampilkan iklan pertama
+                      Expanded(
+                        child: ListIklan(
+                          ad_id: _adList[firstIndex].ad_id,
+                          foto: _adList[firstIndex].image,
+                          judul: _adList[firstIndex].title,
+                          harga: _adList[firstIndex].price.toString(),
+                        ),
+                      ),
+
+                      // Jika ada iklan kedua, menampilkannya di kolom kedua
+                      if (secondIndex < _adList.length)
+                        Expanded(
+                          child: ListIklan(
+                            ad_id: _adList[secondIndex].ad_id,
+                            foto: _adList[secondIndex].image,
+                            judul: _adList[secondIndex].title,
+                            harga: _adList[secondIndex].price.toString(),
+                          ),
+                        ),
+                    ],
+                  );
+                },
+              )
             ],
           ),
         ),
@@ -131,7 +153,11 @@ class _HomeState extends State<Home> {
 }
 
 class ListIklan extends StatelessWidget {
-  ListIklan({required this.foto, required this.judul, required this.harga, required this.ad_id});
+  ListIklan(
+      {required this.foto,
+      required this.judul,
+      required this.harga,
+      required this.ad_id});
   final String ad_id;
   final String foto;
   final String judul;
@@ -143,7 +169,7 @@ class ListIklan extends StatelessWidget {
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => new Detail(ad_id:ad_id)),
+          MaterialPageRoute(builder: (context) => new Detail(ad_id: ad_id)),
         );
       },
       child: new Container(
@@ -167,14 +193,17 @@ class ListIklan extends StatelessWidget {
             //--------------------------------------------------------------------
             new Container(
               child: CachedNetworkImage(
-                  placeholder: (context, url) => const CircularProgressIndicator(),
-                  imageUrl: foto,
-                ),
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                imageUrl: foto,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
             ),
             //--------------------------------------------------------------------
             //judul
             //--------------------------------------------------------------------
-            
+
             new Container(
               //height: MediaQuery.of(context).size.height / 4.3,
               //width: MediaQuery.of(context).size.width / 2.5,
