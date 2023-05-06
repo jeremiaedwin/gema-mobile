@@ -3,6 +3,8 @@ import 'package:gema_app/pages/setting/editNama.dart';
 import 'package:gema_app/pages/setting/editNomorHP.dart';
 import 'package:gema_app/pages/setting/editUsername.dart';
 import '../../widgets/DetailProduk-widgets.dart';
+import '../controllers/UserController.dart';
+import '../models/Profile.dart';
 
 class NamaAkun extends StatelessWidget {
   NamaAkun({required this.teks});
@@ -51,7 +53,9 @@ class FotoProfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Container(
         child: ClipOval(
-      child: Image(
+      child: foto.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            :Image(
         image: new NetworkImage(foto),
         height: 75.0,
         width: 75.0,
@@ -71,7 +75,9 @@ class TextInfoProfile extends StatelessWidget {
     return Container(
       child: new Align(
         alignment: Alignment.topLeft,
-        child: new Text(teks,
+        child: teks.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            :new Text(teks,
             style: new TextStyle(
               fontSize: 14.0,
             )),
@@ -80,20 +86,40 @@ class TextInfoProfile extends StatelessWidget {
   }
 }
 
-class DetailInfoProfile extends StatelessWidget {
-  DetailInfoProfile(
-      {required this.nim,
-      required this.username,
-      required this.nama,
-      required this.email,
-      required this.telpon});
+class DetailInfoProfile extends StatefulWidget {
+  DetailInfoProfile({
+      required this.nim
+  });
 
-  final String nim, username, nama, email, telpon;
+  final String nim;
 
+  @override
+  State<DetailInfoProfile> createState() => _DetailInfoProfileState();
+}
+
+class _DetailInfoProfileState extends State<DetailInfoProfile> {
+  UserController _UserController = UserController();
+  List<Profile> _data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    final data = await _UserController.getDataDetail();
+    setState(() {
+      _data = data.cast<Profile>();
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Column(
+        child: _data.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            :Column(
       children: <Widget>[
         //NIM-------------------------------------------------------------------
         Container(
@@ -110,7 +136,7 @@ class DetailInfoProfile extends StatelessWidget {
                           color: Color.fromARGB(255, 165, 165, 165))),
                 ),
               ),
-              TextInfoProfile(teks: nim),
+              TextInfoProfile(teks: _data[0].nim),
             ],
           ),
         ),
@@ -129,14 +155,14 @@ class DetailInfoProfile extends StatelessWidget {
                           color: Color.fromARGB(255, 165, 165, 165))),
                 ),
               ),
-              TextInfoProfile(teks: username),
+              TextInfoProfile(teks: _data[0].username),
               IconButton(
                 iconSize: 15,
                 icon: const Icon(Icons.arrow_forward_ios,
                     color: Color.fromARGB(255, 165, 165, 165)),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EditUsername()));
+                      MaterialPageRoute(builder: (context) => EditUsername(nim:_data[0].nim)));
                 },
               ),
             ],
@@ -158,14 +184,14 @@ class DetailInfoProfile extends StatelessWidget {
                           color: Color.fromARGB(255, 165, 165, 165))),
                 ),
               ),
-              TextInfoProfile(teks: nama),
+              TextInfoProfile(teks: _data[0].full_name),
               IconButton(
                 iconSize: 15,
                 icon: const Icon(Icons.arrow_forward_ios,
                     color: Color.fromARGB(255, 165, 165, 165)),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EditNama(full_name: nama, nim: nim,)));
+                      MaterialPageRoute(builder: (context) => EditNama(nim:_data[0].nim)));
                 },
               ),
             ],
@@ -187,7 +213,7 @@ class DetailInfoProfile extends StatelessWidget {
                           color: Color.fromARGB(255, 165, 165, 165))),
                 ),
               ),
-              TextInfoProfile(teks: email)
+              TextInfoProfile(teks: _data[0].email)
             ],
           ),
         ),
@@ -206,14 +232,14 @@ class DetailInfoProfile extends StatelessWidget {
                         color: Color.fromARGB(255, 165, 165, 165))),
               ),
             ),
-            TextInfoProfile(teks: telpon),
+            TextInfoProfile(teks: _data[0].phone_number),
             IconButton(
               iconSize: 15,
               icon: const Icon(Icons.arrow_forward_ios,
                   color: Color.fromARGB(255, 165, 165, 165)),
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => EditNomorHP()));
+                    MaterialPageRoute(builder: (context) => EditNomorHP(nim:_data[0].nim)));
               },
             ),
           ],

@@ -299,7 +299,12 @@ class _AddItemState extends State<AddItem> {
                       child: const Text('Create Data'),
                       onPressed: () {
                         setState(() {
-                          _adController.postData(widget.ad_type_id, widget.category_id, _kondisi, '211511000', titleController.text, descController.text, priceController.text, _image);
+                          _adController.postData(widget.ad_type_id, widget.category_id, _kondisi, '211511097', titleController.text, descController.text, priceController.text, _image);
+                          titleController.clear();
+                          descController.clear();
+                          priceController.clear();
+                          _kondisi = '';
+                          _image = null;
                         });
                       },
                     ),

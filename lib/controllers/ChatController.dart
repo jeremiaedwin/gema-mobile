@@ -39,7 +39,6 @@ class ChatController extends GetxController{
       String sender_id) async {
     final apiUrl = Uri.parse('http://10.0.2.2:8080/api/chat/create');
     final headers = {'Content-Type': 'application/json'};
-    print(ad_id);
       final data = <String, dynamic>{
       'message': message,
       'receiver_id': receiver_id,
