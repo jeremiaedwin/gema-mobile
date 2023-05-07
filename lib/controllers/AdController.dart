@@ -11,7 +11,7 @@ class AdController {
   }
 
   Future<List<Ad>> getDatabyCategory(String category_id) async {
-    final apiUrl = Uri.parse('http://192.168.231.2:8080/api/ad/read/all/');
+    final apiUrl = Uri.parse('http://192.168.195.2:8080/api/ad/read/all/');
     final response = await http.get(apiUrl);
 
     if (response.statusCode == 200) {
@@ -27,7 +27,7 @@ class AdController {
   }
 
   Future<List<Ad>> getData() async {
-    final apiUrl = Uri.parse('http://192.168.231.2:8080/api/ad/read/all');
+    final apiUrl = Uri.parse('http://192.168.195.2:8080/api/ad/read/all');
     final response = await http.get(apiUrl);
     print(response.statusCode);
 
@@ -44,7 +44,7 @@ class AdController {
 
   Future<List<AdDetail>> getDataDetail(String ad_id) async {
     final apiUrl =
-        Uri.parse('http://192.168.231.2:8080/api/ad/read/detail/$ad_id');
+        Uri.parse('http://192.168.195.2:8080/api/ad/read/detail/$ad_id');
     final response = await http.get(apiUrl);
     print(response.statusCode); // this won't printed
 

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class UserController {
   Future<List<Profile>> getDataDetail() async {
     final nim = "211511097";
-    final apiUrl = Uri.parse('http://192.168.231.2:8080/api/user/read/$nim');
+    final apiUrl = Uri.parse('http://192.168.195.2:8080/api/user/read/$nim');
     final response = await http.get(apiUrl);
     print(response.statusCode);
 

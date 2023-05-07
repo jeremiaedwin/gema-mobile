@@ -19,7 +19,7 @@ class ChatController extends GetxController {
   // }
 
   Future<List<Contact>> getContact() async {
-    final String apiUrl = 'http://192.168.231.2:8080/api/chat/contact';
+    final String apiUrl = 'http://192.168.195.2:8080/api/chat/contact';
     final response = await http.get(Uri.parse('$apiUrl'));
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -34,7 +34,7 @@ class ChatController extends GetxController {
 
   Future<void> sendMessage(String? ad_id, String message, String receiver_id,
       String sender_id) async {
-    final apiUrl = Uri.parse('http://192.168.231.2:8080/api/chat/create');
+    final apiUrl = Uri.parse('http://192.168.195.2:8080/api/chat/create');
     final headers = {'Content-Type': 'application/json'};
     print(ad_id);
     final data = <String, dynamic>{
