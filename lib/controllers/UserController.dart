@@ -12,15 +12,12 @@ class UserController{
 
   Future<List<Profile>> getDataDetail() async {
     final nim = "211511097";
-    final apiUrl = Uri.parse('http://192.168.231.2:8080/api/user/read/$nim');
+    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/read/$nim');
     final response = await http.get(apiUrl);
     print(response.statusCode);
 
     if (response.statusCode == 200) {
-      // konversi json ke list of Ad object
-      print('test');
       final data = jsonDecode(response.body) as List<dynamic>;
-      print('test2');
 
       return data.map((json) => Profile.fromJson(json)).toList();
     } else {
@@ -60,8 +57,6 @@ class UserController{
       print('Image file is not selected');
     }
     final response = await request.send();
-    print(request.fields);
-    print(response.statusCode);
     final responseString = await response.stream.transform(utf8.decoder).join();
     if (response.statusCode == 200) {
       // Successful request

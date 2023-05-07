@@ -20,5 +20,24 @@ class WishlistController{
     return [];
   }
 
+  Future <void> addWishlist(
+    String nim,
+    String ad_id,
+    String wishlist_id
+  ) async {
+    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/wishlist/create');
+    final response = await http.post(apiUrl, body: {
+      'ad_id': ad_id,
+      'nim': nim,
+      'wishlist_id': wishlist_id,
+    });
+
+    if (response.statusCode == 200) {
+      print('Wishlist created successfully');
+    } else {
+      throw Exception('Failed to create wishlist');
+    }
+  }
+
   
 }
