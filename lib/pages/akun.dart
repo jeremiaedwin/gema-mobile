@@ -27,6 +27,12 @@ class _AkunState extends State<Akun> {
       _data = data.cast<Profile>();
     });
   }
+
+  void _updateData(Profile updatedProfile) {
+  setState(() {
+    _data = [_data[0].copyWith(updatedProfile)];
+  });
+}
   @override
   Widget build(BuildContext context) {
     return new Container(
@@ -47,18 +53,18 @@ class _AkunState extends State<Akun> {
               color: Color.fromARGB(1000, 171, 0, 52),
             ),
             child: new Row(children: <Widget>[
-              new Container(
+              _data.isNotEmpty ? new Container(
                 margin: EdgeInsets.only(right: 20),
                 child: FotoProfil(
                     foto:
-                        "https://awsimages.detik.net.id/community/media/visual/2022/08/07/resep-nasi-goreng-ayam-dan-ebi_43.jpeg?w=700&q=90"),
-              ),
+                        _data[0].avatar),
+              ):Container(),
               new Column(
                 children: <Widget>[
-                  new Container(
+                  _data.isNotEmpty ? new Container(
                     margin: EdgeInsets.only(top: 25),
-                    child: new NamaAkun(teks: "User 09238409238049"),
-                  )
+                    child: new NamaAkun(teks: _data[0].full_name),
+                  ):Container()
                 ],
               ),
             ]),
@@ -96,13 +102,8 @@ class _AkunState extends State<Akun> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => KelolaAkun(
-                  full_name: _data[0].full_name,
-                  email: _data[0].email,
+                MaterialPageRoute(builder: (context) => KelolaAkun( 
                   nim: _data[0].nim,
-                  phone_number: _data[0].phone_number,
-                  username: _data[0].username,
-                  avatar: _data[0].avatar,
                 )),
               );
             },

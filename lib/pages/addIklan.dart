@@ -331,24 +331,21 @@ class _AddItemState extends State<AddItem> {
                           borderRadius: new BorderRadius.circular(5))),
                 ),
 
-                ElevatedButton(
-                  child: const Text('Create Data'),
-                  onPressed: () {
-                    setState(() {
-                      _adController.postData(
-                          widget.ad_type_id,
-                          widget.category_id,
-                          _kondisi,
-                          '211511097',
-                          titleController.text,
-                          descController.text,
-                          priceController.text,
-                          _image);
-                    });
-                  },
-                ),
-              ],
-            ),
+                  ElevatedButton(
+                      child: const Text('Create Data'),
+                      onPressed: () {
+                        setState(() {
+                          _adController.postData(widget.ad_type_id, widget.category_id, _kondisi, '211511097', titleController.text, descController.text, priceController.text, _image);
+                          titleController.clear();
+                          descController.clear();
+                          priceController.clear();
+                          _kondisi = '';
+                          _image = null;
+                        });
+                      },
+                    ),
+                ],
+              ),
           ),
         ],
       ),

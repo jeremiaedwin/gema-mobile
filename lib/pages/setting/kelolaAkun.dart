@@ -1,30 +1,46 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:gema_app/models/Profile.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../controllers/UserController.dart';
 import '../../widgets/ProfilToko-widgets.dart';
 import '../../widgets/DetailProduk-widgets.dart';
 import '../../widgets/Akun-widgets.dart';
 
 class KelolaAkun extends StatefulWidget {
-  final String full_name;
-  final String email;
   final String nim;
-  final String phone_number;
-  final String username;
-  final String avatar;
 
   KelolaAkun({
-    required this.full_name,
-    required this.email,
     required this.nim,
-    required this.phone_number,
-    required this.username, required this.avatar,
   });
   @override
   _FormPageState createState() => _FormPageState();
 }
 
 class _FormPageState extends State<KelolaAkun> {
+  UserController _UserController = UserController();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _fetchData();
+  }
+  List<Profile> _data = [];
+
+  Future<void> _fetchData() async {
+    setState(() {
+      _data = []; // clear the list before fetching new data
+    });
+    final data = await _UserController.getDataDetail();
+    setState(() {
+      _data = data.cast<Profile>();
+    });
+  }
   ////image-picker--------------------------------------------------------------
   File? image;
 
@@ -51,7 +67,9 @@ class _FormPageState extends State<KelolaAkun> {
         ),
         //end-app-bar-----------------------------------------------------------
 
-        body: Column(
+        body: _data.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            :Column(
           children: <Widget>[
             //edit-foto---------------------------------------------------------
             Container(
@@ -74,7 +92,7 @@ class _FormPageState extends State<KelolaAkun> {
                           EdgeInsets.only(right: 120, left: 120, bottom: 20),
                       child: FotoProfile(
                           foto:
-                              widget.avatar),
+                              _data[0].avatar),
                     ),
                     //endfoto---------------------------------------------------
 
@@ -111,11 +129,7 @@ class _FormPageState extends State<KelolaAkun> {
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: DetailInfoProfile(
-                      nim: widget.nim,
-                      username: widget.username,
-                      nama: widget.full_name,
-                      email: widget.email,
-                      telpon: widget.phone_number,
+                      nim: _data[0].nim
                     ),
                   )
                 ],

@@ -1,15 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:gema_app/pages/setting/kelolaAkun.dart';
 import 'package:gema_app/widgets/DetailProduk-widgets.dart';
+import '../../controllers/UserController.dart';
+import '../../models/Profile.dart';
 import '../../widgets/Akun-widgets.dart';
 
 class EditNomorHP extends StatefulWidget {
+  EditNomorHP(
+      {required this.nim
+      });
+
+  final String nim;
   @override
   _FormPageState createState() => _FormPageState();
 }
 
 class _FormPageState extends State<EditNomorHP> {
+  UserController _UserController = UserController();
+  List<Profile> _data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    final data = await _UserController.getDataDetail();
+    setState(() {
+      _data = data.cast<Profile>();
+    });
+  }
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
 
   @override
@@ -26,7 +49,9 @@ class _FormPageState extends State<EditNomorHP> {
         ),
         //end-app-bar-----------------------------------------------------------
 
-        body: Column(children: <Widget>[
+        body: _data.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            :Column(children: <Widget>[
           //edit-foto---------------------------------------------------------
           Container(
               padding: EdgeInsets.all(20),
@@ -44,16 +69,25 @@ class _FormPageState extends State<EditNomorHP> {
                 children: [
                   TextField(
                     decoration: InputDecoration(
-                      labelText: 'Nomor HP',
+                      labelText: _data[0].phone_number,
                       border: OutlineInputBorder(),
                     ),
+                    controller: _phoneController,
                   ),
                   SizedBox(height: 14.0),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromARGB(1000, 171, 0, 52),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      final String updatedProfile = await _UserController.updateProfile(_data[0].nim, _data[0].full_name, _data[0].username,  _phoneController.text, _data[0].password, _data[0].token, _data[0].email,null); // Call the function here
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => KelolaAkun(nim: _data[0].nim,),
+                        ),
+                      );
+                    },
                     child: Text('Simpan'),
                   ),
                 ],

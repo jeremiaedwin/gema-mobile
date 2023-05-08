@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gema_app/controllers/WishlistController.dart';
 import '../controllers/AdController.dart';
 import '../models/Ad.dart';
 import '../widgets/CardIklan.dart';
@@ -12,20 +13,31 @@ class Wishlist extends StatefulWidget {
 
 class _WishlistState extends State<Wishlist> {
   AdController _adController = AdController();
+  WishlistController _wishlistController = WishlistController();
   List<Ad> _adList = [];
 
   @override
   void initState() {
     super.initState();
-    _getData();
+    _getDataIklan();
+    
   }
 
-  Future<void> _getData() async {
-    final data = await _adController.getData();
+  Future<void> _getDataIklan() async {
+    final adData = await _adController.getData();
+    final wishlistData  = await _wishlistController.getWishlist("211511097");
+    print(wishlistData.length);
     setState(() {
-      _adList = data.cast<Ad>();
+      _adList = adData
+        .where((ad) => wishlistData
+            .any((wishlist) => wishlist.ad_id == ad.ad_id))
+        .toList();
     });
+    print(_adList.length);
   }
+
+  
+  
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +55,7 @@ class _WishlistState extends State<Wishlist> {
                 child: new Align(
                   alignment: Alignment.topLeft,
                   child: new Text(
-                    "Wishlist",
+                    "Wishlist Anda",
                     style: new TextStyle(
                         fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
