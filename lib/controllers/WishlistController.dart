@@ -6,19 +6,20 @@ import 'package:http/http.dart' as http;
 class WishlistController{
 
   Future<List<Wishlist>> getWishlist(String id) async{
-    final String apiUrl = 'http://10.0.2.2:8080/api/wishlist/read/all/$id'; 
-    final String id_type = id;
-      final response =
-          await http.get(Uri.parse('$apiUrl/$id'));
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body) as List<dynamic>;
-        return data.map((json) => Wishlist.fromJson(json)).toList();
-      }else{
-      throw Exception('Failed to load Wishlist');
+  final String apiUrl = 'http://10.0.2.2:8080/api/wishlist/read/all/$id'; 
+  try {
+    final response = await http.get(Uri.parse(apiUrl));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data.map((json) => Wishlist.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load Wishlist: ${response.statusCode}');
     }
-
-    return [];
+  } catch (e) {
+    print('Error loading wishlist: $e');
+    throw Exception('Failed to load Wishlist');
   }
+}
 
   Future <void> addWishlist(
     String nim,

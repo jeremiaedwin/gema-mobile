@@ -34,7 +34,7 @@ class AdController {
     if (response.statusCode == 200) {
       // konversi json ke list of Ad object
       final data = jsonDecode(response.body) as List<dynamic>;
-      print(data);
+      // print(data);
       List<dynamic> ads = data.map((json) => Ad.fromJson(json)).toList();
       return data.map((json) => Ad.fromJson(json)).toList();
     } else {
