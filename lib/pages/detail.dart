@@ -74,8 +74,10 @@ class _DetailState extends State<Detail> {
                                 ),
                               ),
 
+                              //header-----------------------------------------------------
                               new Container(
-                                  padding: EdgeInsets.all(20),
+                                  padding: EdgeInsets.only(
+                                      left: 20, right: 20, top: 20, bottom: 10),
                                   decoration: new BoxDecoration(
                                     border: Border.all(
                                         color:
@@ -89,6 +91,21 @@ class _DetailState extends State<Detail> {
                                   ),
                                   child: new Column(
                                     children: <Widget>[
+                                      //wishlist-----------------------------------------------------
+                                      SizedBox(
+                                        height: 24,
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: IconButton(
+                                            padding: EdgeInsets.zero,
+                                            icon: Icon(Icons.favorite_border),
+                                            onPressed: () {
+                                              // Aksi ketika button di tekan
+                                            },
+                                          ),
+                                        ),
+                                      ),
+
                                       //harga-----------------------------------------------------
                                       new DetailWidget.TextBold(
                                           teks: "Rp. " + ad.price),
