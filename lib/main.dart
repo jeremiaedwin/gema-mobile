@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gema_app/pages/auth.dart';
 import 'pages/addIklan.dart' as item;
-import 'pages/home.dart' as home; 
-import 'pages/chat.dart' as chat; 
+import 'pages/home.dart' as home;
+import 'pages/chat.dart' as chat;
 import 'widgets/search.dart';
 import 'pages/wishlist.dart' as wistlist;
 import 'pages/notifikasi.dart' as notifikasi;
 import 'pages/akun.dart' as akun;
 import 'pages/auth.dart' as auth;
+
+import 'pages/register.dart' as register;
 
 void main() {
   runApp(new MaterialApp(home: MyApp(), routes: <String, WidgetBuilder>{
@@ -70,17 +72,15 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
         ),
         actions: <Widget>[
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/addItem');
-            },
-            icon: const Icon(Icons.add)
-          ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/addItem');
+              },
+              icon: const Icon(Icons.add)),
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/chat');
-            },
-            icon: const Icon(Icons.chat_bubble_rounded)
-          ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat');
+              },
+              icon: const Icon(Icons.chat_bubble_rounded)),
         ],
       ),
       body: new TabBarView(
