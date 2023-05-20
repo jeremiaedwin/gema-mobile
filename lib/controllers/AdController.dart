@@ -11,7 +11,8 @@ class AdController {
   }
 
   Future<List<Ad>> getDatabyCategory(String category_id) async {
-    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/read/all/');
+    //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/read/all/');
+    final apiUrl = Uri.parse('http://127.0.0.1:8080/api/ad/read/all/');
     final response = await http.get(apiUrl);
 
     if (response.statusCode == 200) {
@@ -27,7 +28,8 @@ class AdController {
   }
 
   Future<List<Ad>> getData() async {
-    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/read/all');
+    //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/read/all');
+    final apiUrl = Uri.parse('http://127.0.0.1:8080/api/ad/read/all');
     final response = await http.get(apiUrl);
     print(response.statusCode);
 
@@ -43,7 +45,8 @@ class AdController {
   }
 
   Future<List<AdDetail>> getDataDetail(String ad_id) async {
-    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/read/detail/$ad_id');
+    //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/read/detail/$ad_id');
+    final apiUrl = Uri.parse('http://127.0.0.1:8080/api/ad/read/detail/$ad_id');
     final response = await http.get(apiUrl);
     print(response.statusCode); // this won't printed
 
@@ -66,7 +69,8 @@ class AdController {
     String price,
     File? image,
   ) async {
-    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/create');
+    //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/create');
+    final apiUrl = Uri.parse('http://localhost:8080/api/ad/create');
     final request = http.MultipartRequest('POST', apiUrl);
     request.fields['category_id'] = category_id;
     request.fields['ad_type_id'] = ad_type_id;
