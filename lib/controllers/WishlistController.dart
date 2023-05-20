@@ -42,6 +42,4 @@ class WishlistController{
       throw Exception('Failed to create wishlist');
     }
   }
-
-  
 }

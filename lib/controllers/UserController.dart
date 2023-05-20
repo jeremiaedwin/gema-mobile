@@ -4,15 +4,15 @@ import 'dart:io';
 import 'package:gema_app/models/Profile.dart';
 import 'package:http/http.dart' as http;
 
-class UserController{
-  
+class UserController {
   String? basename(File file) {
-      return file.path.split('/').last;
-    }
+    return file.path.split('/').last;
+  }
 
   Future<List<Profile>> getDataDetail() async {
     final nim = "211511097";
-    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/read/$nim');
+    //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/read/$nim');
+    final apiUrl = Uri.parse('http://192.168.236.234:8080/api/user/read/$nim');
     final response = await http.get(apiUrl);
     print(response.statusCode);
 
@@ -26,15 +26,18 @@ class UserController{
   }
 
   Future<String> updateProfile(
-      String nim,
-      String full_name,
-      String username,
-      String telepon,
-      String password,
-      String token,
-      String email,
-      File? image,) async {
-    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/update/$nim');
+    String nim,
+    String full_name,
+    String username,
+    String telepon,
+    String password,
+    String token,
+    String email,
+    File? image,
+  ) async {
+    //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/update/$nim');
+    final apiUrl =
+        Uri.parse('http://192.168.236.234:8080/api/user/update/$nim');
     final request = http.MultipartRequest('PATCH', apiUrl);
     request.fields['full_name'] = full_name;
     request.fields['nim'] = nim;
@@ -53,7 +56,7 @@ class UserController{
       );
       request.files.add(multipartFile);
       print('File is attached: ${request.files.first.filename}');
-    }else {
+    } else {
       print('Image file is not selected');
     }
     final response = await request.send();

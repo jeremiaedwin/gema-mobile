@@ -20,24 +20,20 @@ class _WishlistState extends State<Wishlist> {
   void initState() {
     super.initState();
     _getDataIklan();
-    
   }
 
   Future<void> _getDataIklan() async {
     final adData = await _adController.getData();
-    final wishlistData  = await _wishlistController.getWishlist("211511097");
+    final wishlistData = await _wishlistController.getWishlist("211511097");
     print(wishlistData.length);
     setState(() {
       _adList = adData
-        .where((ad) => wishlistData
-            .any((wishlist) => wishlist.ad_id == ad.ad_id))
-        .toList();
+          .where((ad) =>
+              wishlistData.any((wishlist) => wishlist.ad_id == ad.ad_id))
+          .toList();
     });
     print(_adList.length);
   }
-
-  
-  
 
   @override
   Widget build(BuildContext context) {
