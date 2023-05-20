@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import '../controllers/AuthController.dart';
 import '../main.dart' as MainPage;
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: MyApp(),
+    routes: <String, WidgetBuilder>{
+      '/main': (BuildContext context) => MyApp(), 
+    },
+  ));
 }
 class MyApp extends StatelessWidget {
   @override
@@ -27,6 +33,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +56,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
+                controller: _emailController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Username',
@@ -57,6 +66,7 @@ class _LoginPageState extends State<LoginPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -84,7 +94,11 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
                   child: ElevatedButton(
                     onPressed: () { 
-                      Navigator.pushNamed(context, '/main');
+                      String email = _emailController.text;
+                      String password = _passwordController.text;
+                      AuthController().signIn(context, email, password);
+
+                      
                     },
                     style: ElevatedButton.styleFrom(
                       primary: Color.fromARGB(1000, 171, 0, 52),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import '../controllers/AdController.dart';
+import '../controllers/WishlistController.dart';
 import '../models/Ad.dart';
 import '../models/AdDetail.dart';
 import '../widgets/search.dart';
 import '../widgets/DetailProduk-widgets.dart' as DetailWidget;
+
 
 class Detail extends StatefulWidget {
   const Detail({
@@ -17,18 +19,45 @@ class Detail extends StatefulWidget {
 
 class _DetailState extends State<Detail> {
   AdController _adController = AdController();
+  WishlistController _wishlistController = WishlistController();
   List<AdDetail> _data = [];
+  bool isWishlist = false;
+  Set<Icon> icon = Set<Icon>();
 
   @override
   void initState() {
     super.initState();
     _fetchData();
+    _adInWishlist();
   }
 
   Future<void> _fetchData() async {
     final data = await _adController.getDataDetail(widget.ad_id);
     setState(() {
       _data = data.cast<AdDetail>();
+    });
+  }
+
+  Future<void> _adInWishlist() async {
+    final adData = await _adController.getData();
+    final wishlistData  = await _wishlistController.getWishlist("211511097");
+    final adInWishlist = wishlistData.any((wishlist) => wishlist.ad_id == widget.ad_id);
+    setState(() {
+       isWishlist = wishlistData.any((element) => element.ad_id == widget.ad_id);
+          if (isWishlist==1) {
+            icon.add(
+              Icon(
+                Icons.favorite_border,
+                color: Colors.red,
+              ),
+            );
+          } else {
+            icon.add(
+              Icon(
+                Icons.favorite_border,
+              ),
+            );
+          }
     });
   }
 
@@ -92,15 +121,19 @@ class _DetailState extends State<Detail> {
                                   child: new Column(
                                     children: <Widget>[
                                       //wishlist-----------------------------------------------------
+                                     
                                       SizedBox(
                                         height: 24,
                                         child: Align(
                                           alignment: Alignment.topRight,
                                           child: IconButton(
                                             padding: EdgeInsets.zero,
-                                            icon: Icon(Icons.favorite_border),
+                                            icon: icon.elementAt(0),
                                             onPressed: () {
-                                              // Aksi ketika button di tekan
+                                              setState(() {
+                                                _wishlistController.addWishlist('211511097', ad.ad_id, '5');
+
+                                              });
                                             },
                                           ),
                                         ),

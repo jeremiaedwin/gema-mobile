@@ -12,17 +12,21 @@ import 'pages/auth.dart' as auth;
 void main() {
   runApp(new MaterialApp(home: MyApp(), routes: <String, WidgetBuilder>{
     '/addItem': (BuildContext context) => new item.AdTypeView(),
-    '/chat': (BuildContext context) => new chat.Chat()
+    '/chat': (BuildContext context) => new chat.Chat(),
+    '/main': (BuildContext context) => new MyApp(),
   }));
 }
 
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => new _MyAppState();
+
+
 }
 
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   late TabController controller;
+  bool isLoggedIn = true;
 
   @override
   void initState() {
@@ -36,8 +40,18 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  void setLoggedIn(bool value) {
+    setState(() {
+      isLoggedIn = value;
+    });
+  }
+  
+
   @override
   Widget build(BuildContext context) {
+    if (!isLoggedIn) {
+      return auth.LoginPage();
+    }
     return new Scaffold(
       appBar: new AppBar(
         automaticallyImplyLeading: false,

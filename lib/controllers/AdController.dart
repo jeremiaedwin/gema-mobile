@@ -45,7 +45,7 @@ class AdController {
   Future<List<AdDetail>> getDataDetail(String ad_id) async {
     final apiUrl = Uri.parse('http://10.0.2.2:8080/api/ad/read/detail/$ad_id');
     final response = await http.get(apiUrl);
-    print(response.statusCode); // this won't printed
+    print(response.statusCode); 
 
     if (response.statusCode == 200) {
       // konversi json ke list of Ad object
