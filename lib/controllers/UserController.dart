@@ -12,7 +12,7 @@ class UserController {
   Future<List<Profile>> getDataDetail() async {
     final nim = "211511097";
     //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/read/$nim');
-    final apiUrl = Uri.parse('http://192.168.236.234:8080/api/user/read/$nim');
+    final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/read/$nim');
     final response = await http.get(apiUrl);
     print(response.statusCode);
 
@@ -37,7 +37,7 @@ class UserController {
   ) async {
     //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/user/update/$nim');
     final apiUrl =
-        Uri.parse('http://192.168.236.234:8080/api/user/update/$nim');
+        Uri.parse('http://10.0.2.2:8080/api/user/update/$nim');
     final request = http.MultipartRequest('PATCH', apiUrl);
     request.fields['full_name'] = full_name;
     request.fields['nim'] = nim;

@@ -76,7 +76,9 @@ class _AkunState extends State<Akun> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => KelolaProduk()),
+                MaterialPageRoute(builder: (context) => KelolaProduk(
+                  nim: _data[0].nim,
+                )),
               );
             },
             child: new Container(

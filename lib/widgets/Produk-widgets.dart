@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gema_app/controllers/AdController.dart';
 import '../../widgets/DetailProduk-widgets.dart';
+import '../pages/EditIklan.dart';
+import '../pages/detail.dart';
 import '../pages/setting/KelolaProduk.dart';
 
 class OpsiProduk extends StatelessWidget {
-  OpsiProduk({required this.foto, required this.nama});
+  OpsiProduk({required this.foto, required this.nama, required this.ad_id});
 
   final String foto;
   final String nama;
+  final String ad_id;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +45,44 @@ class OpsiProduk extends StatelessWidget {
               Container(
                   margin: EdgeInsets.only(left: 20),
                   child: TextNormal(
-                    teks: "Nasi Goreng teh nur",
-                  ))
+                    teks: nama,
+                  )),
+                  PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'lihat') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => new Detail(ad_id: ad_id)),
+                );
+              } else if (value == 'edit') {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => new EditIklan(ad_id: ad_id)),
+                );
+              } else if (value == 'hapus') {
+                AdController adController = AdController();
+                adController.deleteData(ad_id).then((_) {
+                  Navigator.pop(context);
+                }).catchError((error) {
+                  print('Error deleting data: $error');
+                });
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'lihat',
+                child: Text('Lihat'),
+              ),
+              PopupMenuItem<String>(
+                value: 'edit',
+                child: Text('Edit'),
+              ),
+              PopupMenuItem<String>(
+                value: 'hapus',
+                child: Text('Hapus'),
+              ),
+            ],
+          ),
             ],
           ),
         ));

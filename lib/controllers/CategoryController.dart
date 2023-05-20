@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class CategoryController {
   Future<List<Category>> getCategory(String id) async {
     //final String apiUrl = 'http://10.0.2.2:8080/api/category/read/all';
-    final String apiUrl = 'http://8.8.8.8:8080/api/category/read/all';
+    final String apiUrl = 'http://10.0.2.2:8080/api/category/read/all';
     final String id_type = id;
     final response = await http.get(Uri.parse('$apiUrl/$id'));
     if (response.statusCode == 200) {
@@ -22,7 +22,7 @@ class CategoryController {
   Future<List<Category>> getDataDetail(String category_id) async {
     //final apiUrl = Uri.parse('http://10.0.2.2:8080/api/category/read/all');
     final apiUrl =
-        Uri.parse('http://192.168.236.234:8080/api/category/read/all');
+        Uri.parse('http://10.0.2.2:8080/api/category/read/all');
     final response = await http.get(apiUrl);
     print(response.statusCode); // this won't printed
 
