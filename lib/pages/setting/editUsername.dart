@@ -26,7 +26,7 @@ class _FormPageState extends State<EditUsername> {
   }
 
   Future<void> _fetchData() async {
-    final data = await _UserController.getDataDetail();
+    final data = await _UserController.getDataDetail(widget.nim);
     setState(() {
       _data = data.cast<Profile>();
     });

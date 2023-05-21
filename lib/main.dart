@@ -4,35 +4,55 @@ import 'pages/addIklan.dart' as item;
 import 'pages/home.dart' as home;
 import 'pages/chat.dart' as chat;
 import 'widgets/search.dart';
-import 'pages/wishlist.dart' as wistlist;
+import 'pages/wishlist.dart' as wishlist;
 import 'pages/notifikasi.dart' as notifikasi;
 import 'pages/akun.dart' as akun;
 import 'pages/auth.dart' as auth;
-
 import 'pages/register.dart' as register;
-
+import 'package:shared_preferences/shared_preferences.dart';
 void main() {
-  runApp(new MaterialApp(home: MyApp(), routes: <String, WidgetBuilder>{
-    '/addItem': (BuildContext context) => new item.AdTypeView(),
-    '/chat': (BuildContext context) => new chat.Chat(),
-    '/main': (BuildContext context) => new MyApp(),
-  }));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
   @override
-  _MyAppState createState() => new _MyAppState();
-
-
+  _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
-  late TabController controller;
-  bool isLoggedIn = true;
+class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    controller = new TabController(vsync: this, length: 4);
+    super.initState();
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: LoginPage(),
+      routes: <String, WidgetBuilder>{
+        // '/addItem': (BuildContext context) => item.AdTypeView(),
+        '/chat': (BuildContext context) => chat.Chat(),
+      },
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  final String nim;
+
+  const MyHomePage({required this.nim});
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+  late TabController controller;
+
+  @override
+  void initState() {
+    controller = TabController(vsync: this, length: 4);
     super.initState();
   }
 
@@ -42,71 +62,64 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
-  void setLoggedIn(bool value) {
-    setState(() {
-      isLoggedIn = value;
-    });
-  }
-  
-
   @override
   Widget build(BuildContext context) {
-    if (!isLoggedIn) {
-      return auth.LoginPage();
-    }
-    return new Scaffold(
-      appBar: new AppBar(
+    return Scaffold(
+      appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Color.fromARGB(1000, 171, 0, 52),
         leading: IconButton(
-            onPressed: () {
-              showSearch(
-                context: context,
-                delegate: CustomSearchDelegate(),
-              );
-            },
-            icon: const Icon(Icons.search)),
-        title: new Text(
+          onPressed: () {
+            showSearch(
+              context: context,
+              delegate: CustomSearchDelegate(),
+            );
+          },
+          icon: Icon(Icons.search),
+        ),
+        title: Text(
           "Temukan di Gema",
           style: TextStyle(fontSize: 14.0, color: Colors.white),
         ),
         actions: <Widget>[
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/addItem');
-              },
-              icon: const Icon(Icons.add)),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => item.AdTypeView(nim: widget.nim)));
+            },
+            icon: Icon(Icons.add),
+          ),
           IconButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/chat');
-              },
-              icon: const Icon(Icons.chat_bubble_rounded)),
+            onPressed: () {
+              Navigator.pushNamed(context, '/chat');
+            },
+            icon: Icon(Icons.chat_bubble_rounded),
+          ),
         ],
       ),
-      body: new TabBarView(
+      body: TabBarView(
         controller: controller,
         children: <Widget>[
-          new home.Home(),
-          new wistlist.Wishlist(),
-          new notifikasi.Notifikasi(),
-          new akun.Akun(),
+          home.Home(),
+          wishlist.Wishlist(),
+          notifikasi.Notifikasi(),
+          akun.Akun(nim: widget.nim),
         ],
       ),
-      bottomNavigationBar: new Material(
+      bottomNavigationBar: Material(
         color: Colors.white,
-        child: new TabBar(
+        child: TabBar(
           indicatorColor: Colors.transparent,
           labelColor: Color.fromARGB(1000, 171, 0, 52),
           unselectedLabelColor: Colors.grey[600],
           controller: controller,
           tabs: <Widget>[
-            new Tab(
-              icon: new Icon(Icons.home),
+            Tab(
+              icon: Icon(Icons.home),
               text: "Beranda",
             ),
-            new Tab(icon: new Icon(Icons.favorite), text: "Wishlist"),
-            new Tab(icon: new Icon(Icons.notifications), text: "Notifikasi"),
-            new Tab(icon: new Icon(Icons.account_circle), text: "Akun Saya"),
+            Tab(icon: Icon(Icons.favorite), text: "Wishlist"),
+            Tab(icon: Icon(Icons.notifications), text: "Notifikasi"),
+            Tab(icon: Icon(Icons.account_circle), text: "Akun Saya"),
           ],
         ),
       ),

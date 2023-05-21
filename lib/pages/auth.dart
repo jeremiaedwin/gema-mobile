@@ -1,33 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gema_app/pages/register.dart';
 import '../controllers/AuthController.dart';
 import '../main.dart' as MainPage;
-void main() {
-  runApp(MaterialApp(
-    home: MyApp(),
-    routes: <String, WidgetBuilder>{
-      '/main': (BuildContext context) => MyApp(), 
-    },
-  ));
-}
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(),
-      routes: <String, WidgetBuilder>{
-        '/main': (BuildContext context) => new MainPage.MyApp(),
-      },
-      onUnknownRoute: (RouteSettings settings) {
-        // return MaterialPageRoute(builder: (BuildContext context) => UnknownPage());
-      },
-    );
-  }
-}
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
-
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
@@ -35,11 +11,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  void _loginPressed() {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    AuthController().signIn(context, email, password);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -60,9 +41,10 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Username',
-                  hintText: 'Enter valid email id as abc@gmail.com'),
+                  hintText: 'Enter valid email id as abc@gmail.com',
                 ),
               ),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: TextField(
@@ -71,8 +53,9 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Password',
-                  hintText: 'Enter secure password'),
+                  hintText: 'Enter secure password',
                 ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
@@ -83,29 +66,26 @@ class _LoginPageState extends State<LoginPage> {
                 style: TextButton.styleFrom(
                   textStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                child: Text('Forgot Password', style: TextStyle(color: Color.fromARGB(1000, 171, 0, 52))),
-              )
+                child: Text(
+                  'Forgot Password',
+                  style: TextStyle(color: Color.fromARGB(1000, 171, 0, 52)),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15, bottom: 0),
               child: Container(
-                  height: 50,
-                  width: 250,
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
-                  child: ElevatedButton(
-                    onPressed: () { 
-                      String email = _emailController.text;
-                      String password = _passwordController.text;
-                      AuthController().signIn(context, email, password);
-
-                      
-                    },
-                    style: ElevatedButton.styleFrom(
-                      primary: Color.fromARGB(1000, 171, 0, 52),
-                      textStyle: TextStyle(fontSize: 20),
-                    ),
-                    child: Text('Sign In', style: TextStyle(color: Colors.white)),
+                height: 50,
+                width: 250,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                child: ElevatedButton(
+                  onPressed: _loginPressed,
+                  style: ElevatedButton.styleFrom(
+                    primary: Color.fromARGB(1000, 171, 0, 52),
+                    textStyle: TextStyle(fontSize: 20),
                   ),
+                  child: Text('Sign In', style: TextStyle(color: Colors.white)),
+                ),
               ),
             ),
             Padding(
@@ -116,19 +96,21 @@ class _LoginPageState extends State<LoginPage> {
                 right: 0,
                 child: TextButton(
                   onPressed: () {
-                    // Do something when button is pressed
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
                   },
                   style: TextButton.styleFrom(
                     textStyle: TextStyle(fontSize: 15),
                   ),
-                  child: Text('New User? Create Account', style: TextStyle(color: Colors.grey[800])),
+                  child: Text(
+                    'New User? Create Account',
+                    style: TextStyle(color: Colors.grey[800]),
+                  ),
                 ),
-              )
+              ),
             )
-            
           ],
-        )
-      )
+        ),
+      ),
     );
   }
 }

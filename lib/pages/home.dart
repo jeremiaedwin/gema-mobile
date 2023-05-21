@@ -5,7 +5,7 @@ import 'adByCategory.dart';
 import '../widgets/CardIklan.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Menampilkan iklan pertama
-                      Expanded(
+                      Flexible(
                         child: ListIklan(
                           ad_id: _adList[firstIndex].ad_id,
                           foto: _adList[firstIndex].image,
@@ -131,7 +131,7 @@ class _HomeState extends State<Home> {
 
                       // Jika ada iklan kedua, menampilkannya di kolom kedua
                       if (secondIndex < _adList.length)
-                        Expanded(
+                        Flexible(
                           child: ListIklan(
                             ad_id: _adList[secondIndex].ad_id,
                             foto: _adList[secondIndex].image,

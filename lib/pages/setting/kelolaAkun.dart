@@ -36,7 +36,7 @@ class _FormPageState extends State<KelolaAkun> {
     setState(() {
       _data = []; // clear the list before fetching new data
     });
-    final data = await _UserController.getDataDetail();
+    final data = await _UserController.getDataDetail(widget.nim);
     setState(() {
       _data = data.cast<Profile>();
     });

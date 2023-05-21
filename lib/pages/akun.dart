@@ -7,6 +7,9 @@ import '../widgets/Akun-widgets.dart';
 import '../pages/setting/KelolaProduk.dart';
 
 class Akun extends StatefulWidget {
+  final String nim;
+
+  const Akun({required this.nim});
   @override
   _AkunState createState() => _AkunState();
 }
@@ -22,7 +25,7 @@ class _AkunState extends State<Akun> {
   }
 
   Future<void> _fetchData() async {
-    final data = await _UserController.getDataDetail();
+    final data = await _UserController.getDataDetail(widget.nim);
     setState(() {
       _data = data.cast<Profile>();
     });
@@ -94,7 +97,7 @@ class _AkunState extends State<Akun> {
                   color: Colors.white,
                 ),
                 child: NamaOpsi(
-                  teks: "Kelola Opsi"
+                  teks: "Kelola Produk"
                 )),
           )): Container(),
 

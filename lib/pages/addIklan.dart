@@ -14,13 +14,11 @@ import 'package:image_picker/image_picker.dart';
 
 File? _image;
 
-void main() {
-  runApp(new MaterialApp(home: new AdTypeView(), routes: {
-    '/addItem/ad': (BuildContext context) => new AdTypeView(),
-  }));
-}
 
 class AdTypeView extends StatefulWidget {
+  final String nim;
+
+  const AdTypeView({required this.nim});
   @override
   _AdTypeViewState createState() => _AdTypeViewState();
 }
@@ -65,6 +63,7 @@ class _AdTypeViewState extends State<AdTypeView> {
                       context,
                       new MaterialPageRoute(
                         builder: (context) => new AdCategory(
+                          nim: widget.nim,
                           ad_type_id: item.ad_type_id,
                         ),
                       ),
@@ -77,9 +76,10 @@ class _AdTypeViewState extends State<AdTypeView> {
 }
 
 class AdCategory extends StatefulWidget {
+  final String nim;
   final String ad_type_id;
 
-  const AdCategory({required this.ad_type_id, Key? key}) : super(key: key);
+  const AdCategory({required this.ad_type_id,required this.nim, Key? key}) : super(key: key);
 
   @override
   State<AdCategory> createState() => _AdCategoryState();
@@ -125,6 +125,7 @@ class _AdCategoryState extends State<AdCategory> {
                       context,
                       new MaterialPageRoute(
                         builder: (context) => new AddItem(
+                            nim: widget.nim,
                             ad_type_id: item.category_id,
                             category_id: widget.ad_type_id),
                       ),
@@ -137,10 +138,12 @@ class _AdCategoryState extends State<AdCategory> {
 }
 
 class AddItem extends StatefulWidget {
+  final String nim;
   final String ad_type_id;
   final String category_id;
 
   const AddItem({
+    required this.nim,
     required this.ad_type_id,
     required this.category_id,
     Key? key,
@@ -335,7 +338,7 @@ class _AddItemState extends State<AddItem> {
                       child: const Text('Create Data'),
                       onPressed: () {
                         setState(() {
-                          _adController.postData(widget.ad_type_id, widget.category_id, _kondisi, '211511097', titleController.text, descController.text, priceController.text, _image);
+                          _adController.postData(widget.ad_type_id, widget.category_id, _kondisi, widget.nim, titleController.text, descController.text, priceController.text, _image);
                           titleController.clear();
                           descController.clear();
                           priceController.clear();

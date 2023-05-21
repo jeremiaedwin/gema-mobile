@@ -108,7 +108,7 @@ class _DetailInfoProfileState extends State<DetailInfoProfile> {
   }
 
   Future<void> _fetchData() async {
-    final data = await _UserController.getDataDetail();
+    final data = await _UserController.getDataDetail(widget.nim);
     setState(() {
       _data = data.cast<Profile>();
     });

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import "../pages/detail.dart";
 import '../pages/profilToko.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 class TextNormal extends StatelessWidget {
   TextNormal({required this.teks});
 
@@ -126,11 +126,13 @@ class HubungiPenjual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new InkWell(
-        onTap: () {
+        onTap: () async {
           // Navigator.push(
           //   context,
           //   MaterialPageRoute(builder: (context) => profilToko()),
           // );
+          print('test');
+          whatsapp();
         },
         child: new Container(
           padding: EdgeInsets.all(10),
@@ -150,4 +152,11 @@ class HubungiPenjual extends StatelessWidget {
           ),
         ));
   }
+}
+
+whatsapp() async{
+   var contact = "+880123232333";
+   var androidUrl = "https://wa.me/$contact/?text=test";
+  await launchUrl(Uri.parse(androidUrl));
+
 }

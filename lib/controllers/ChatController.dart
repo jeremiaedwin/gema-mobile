@@ -11,7 +11,7 @@ class ChatController extends GetxController {
   // var chatMessages = <Message>[].obs;
 
   // static Future<void> addChat(Map<String, dynamic> chat) async {
-  //   final response = await http.post(Uri.parse('localhost:7000/api/chat/create'),
+  //   final response = await http.post(Uri.parse('10.0.2.2:7000/api/chat/create'),
   //       body: jsonEncode(chat), headers: {'Content-Type': 'application/json'});
   //   if (response.statusCode != 200) {
   //     throw Exception('Failed to add chat');
