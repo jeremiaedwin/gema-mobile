@@ -52,7 +52,8 @@ class _KelolaProdukState extends State<KelolaProduk> {
                 foto:
                     ad.image,
                 nama: ad.title,
-                ad_id : ad.ad_id),
+                ad_id : ad.ad_id,
+                nimUser: widget.nim,),
           ],
         );
         },

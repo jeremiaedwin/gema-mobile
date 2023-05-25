@@ -1,23 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:gema_app/pages/adBySearch.dart';
 import '../main.dart';
 
 class CustomSearchDelegate extends SearchDelegate{
+  final String nim;
+  CustomSearchDelegate({required this.nim}) : super();
+
   List<String> searchTerms = [
     "Makanan",
     "Minuman",
     "Pakaian"
   ];
+
+  void querySearch(BuildContext context, query) {
+    // print(nim);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) =>  AdBySearch(
+                searchKey: query,
+                nim: nim,
+              )),
+    );
+  }
+
+
   @override
-  List<Widget> buildActions(BuildContext context){
-    return [
-      IconButton(
+List<Widget> buildActions(BuildContext context) {
+  return [
+    IconButton(
       icon: const Icon(Icons.clear),
-      onPressed: (){
+      onPressed: () {
         query = '';
       },
     ),
-    ];
-  }
+    IconButton(
+      icon: const Icon(Icons.search),
+      onPressed: () {
+        querySearch(context, query); 
+      },
+    ),
+  ];
+}
 
   @override
   Widget buildLeading(BuildContext context){

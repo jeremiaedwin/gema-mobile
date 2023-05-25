@@ -18,8 +18,8 @@ class ChatController extends GetxController {
   //   }
   // }
 
-  Future<List<Contact>> getContact() async {
-    final String apiUrl = 'http://10.0.2.2:8080/api/chat/contact';
+  Future<List<Contact>> getContact(String nim_sender) async {
+    final String apiUrl = 'http://10.0.2.2:8080/api/chat/contact/$nim_sender';
     final response = await http.get(Uri.parse('$apiUrl'));
     print(response.statusCode);
     if (response.statusCode == 200) {
@@ -31,6 +31,22 @@ class ChatController extends GetxController {
 
     return [];
   }
+
+  Future<List<Chat>> getChat() async {
+    final String apiUrl = 'http://10.0.2.2:8080/api/chat/read/all';
+    final response = await http.get(Uri.parse('$apiUrl'));
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print('succss');
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data.map((json) => Chat.fromJson(json)).toList();
+    } else {
+      throw Exception('Failed to load ad Contact');
+    }
+
+    return [];
+  }
+
 
   Future<void> sendMessage(String? ad_id, String message, String receiver_id,
       String sender_id) async {
@@ -45,7 +61,7 @@ class ChatController extends GetxController {
     if (ad_id != null) {
       data['ad_id'] = ad_id;
     } else {
-      data['ad_id'] = null;
+      data['ad_id'] = '';
     }
     final response =
         await http.post(apiUrl, headers: headers, body: jsonEncode(data));

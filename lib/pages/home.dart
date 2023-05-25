@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gema_app/icons.dart';
+import 'package:gema_app/pages/pilihKategory.dart';
 import '../controllers/AdController.dart';
 import '../models/Ad.dart';
 import 'adByCategory.dart';
 import '../widgets/CardIklan.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final String nim;
+
+  const Home({required this.nim});
 
   @override
   State<Home> createState() => _HomeState();
@@ -30,63 +34,151 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.nim);
     return ListView(
       children: [
         new Container(
           margin: EdgeInsets.only(top: 30, left: 20, right: 20),
           child: new Column(
             children: <Widget>[
-              //--------------------------------------------------------------------
+              //----------------------------------------------------------------
               //Kategori
-              //--------------------------------------------------------------------
+              //----------------------------------------------------------------
               new Container(
                 margin: EdgeInsets.only(bottom: 20),
                 child: new Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const AdByCategory(
-                                      category_id: '1',
-                                    )),
-                          );
-                        },
-                        icon: const Icon(
-                          Icons.card_giftcard,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.restaurant,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.local_drink,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.design_services,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.video_camera_back,
-                          color: Color.fromARGB(255, 52, 53, 57),
-                          size: 40,
-                        )),
+                    //----------------------------------------------------------
+                    //Pakaian
+                    //----------------------------------------------------------
+                    SizedBox.fromSize(
+                      size: Size(80, 65),
+                      child: ClipOval(
+                        child: Material(
+                          child: InkWell(
+                            splashColor: Color.fromARGB(1000, 171, 0, 52),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AdByCategory(
+                                          category_id: '1',
+                                          nim: widget.nim,
+                                        )),
+                              );
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  CustomIcon.shirt_solid,
+                                  color: Color.fromARGB(255, 52, 53, 57),
+                                ), // <-- Icon
+                                Text("Pakaian"), // <-- Text
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    //----------------------------------------------------------
+                    //Makanan
+                    //----------------------------------------------------------
+                    SizedBox.fromSize(
+                      size: Size(80, 65),
+                      child: ClipOval(
+                        child: Material(
+                          child: InkWell(
+                            splashColor: Color.fromARGB(1000, 171, 0, 52),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  AdByCategory(
+                                          category_id: '3',
+                                          nim: widget.nim,
+                                        )),
+                              );
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  CustomIcon.utensils_solid,
+                                  color: Color.fromARGB(255, 52, 53, 57),
+                                ), // <-- Icon
+                                Text("Makanan"), // <-- Text
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    //----------------------------------------------------------
+                    //Sepatu
+                    //----------------------------------------------------------
+                    SizedBox.fromSize(
+                      size: Size(80, 65),
+                      child: ClipOval(
+                        child: Material(
+                          child: InkWell(
+                            splashColor: Color.fromARGB(1000, 171, 0, 52),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>  AdByCategory(
+                                          category_id: '5',
+                                          nim: widget.nim,
+                                        )),
+                              );
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  CustomIcon.shoe_prints_solid,
+                                  color: Color.fromARGB(255, 52, 53, 57),
+                                ), // <-- Icon
+                                Text("Sepatu"), // <-- Text
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    //----------------------------------------------------------
+                    //Lihat Semua
+                    //----------------------------------------------------------
+                    SizedBox.fromSize(
+                      size: Size(80, 65),
+                      child: ClipOval(
+                        child: Material(
+                          child: InkWell(
+                            splashColor: Color.fromARGB(1000, 171, 0, 52),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                         pilihkategori(nim: widget.nim,)),
+                              );
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  CustomIcon.lihatsemua,
+                                  color: Color.fromARGB(255, 52, 53, 57),
+                                ), // <-- Icon
+                                Text("Semua"), // <-- Text
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -112,7 +204,7 @@ class _HomeState extends State<Home> {
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount:
-                    _adList.length ~/ 2, // jumlah baris = jumlah iklan dibagi 2
+                    (_adList.length / 2).ceil(),// jumlah baris = jumlah iklan dibagi 2
                 itemBuilder: (context, index) {
                   final int firstIndex = index * 2;
                   final int secondIndex = firstIndex + 1;
@@ -120,25 +212,31 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       // Menampilkan iklan pertama
-                      Flexible(
+                      Expanded(
                         child: ListIklan(
                           ad_id: _adList[firstIndex].ad_id,
                           foto: _adList[firstIndex].image,
                           judul: _adList[firstIndex].title,
                           harga: _adList[firstIndex].price.toString(),
+                          nimUser: widget.nim
                         ),
                       ),
 
                       // Jika ada iklan kedua, menampilkannya di kolom kedua
                       if (secondIndex < _adList.length)
-                        Flexible(
+                        Expanded(
                           child: ListIklan(
                             ad_id: _adList[secondIndex].ad_id,
                             foto: _adList[secondIndex].image,
                             judul: _adList[secondIndex].title,
                             harga: _adList[secondIndex].price.toString(),
+                            nimUser: widget.nim
                           ),
                         ),
+                      if (secondIndex >= _adList.length)
+                        Expanded(
+                            child:
+                                Container()),
                     ],
                   );
                 },

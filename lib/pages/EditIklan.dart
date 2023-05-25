@@ -11,10 +11,12 @@ File? _image;
 class EditIklan extends StatefulWidget {
   const EditIklan({
     required this.ad_id,
+    required this.nim,
     Key? key,
   }) : super(key: key);
 
   final String ad_id;
+  final String nim;
 
   @override
   State<EditIklan> createState() => _EditIklanState();
@@ -230,7 +232,7 @@ class _EditIklanState extends State<EditIklan> {
                       child: const Text('Edit Data'),
                       onPressed: () {
                         setState(() {
-                          _adController.putData(context,_data[0].ad_id, _data[0].ad_type_id, _data[0].category_id, _kondisi, '211511097', titleController.text, descController.text, priceController.text, _image);
+                          _adController.putData(context,_data[0].ad_id, _data[0].ad_type_id, _data[0].category_id, _kondisi, widget.nim, titleController.text, descController.text, priceController.text, _image);
                           
                         });
                       },

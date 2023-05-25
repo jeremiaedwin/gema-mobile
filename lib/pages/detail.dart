@@ -10,9 +10,10 @@ import '../widgets/DetailProduk-widgets.dart' as DetailWidget;
 class Detail extends StatefulWidget {
   const Detail({
     required this.ad_id,
-    Key? key,
-  }) : super(key: key);
+    required this.nimUser,
+  });
   final String ad_id;
+  final String nimUser;
   @override
   State<Detail> createState() => _DetailState();
 }
@@ -28,41 +29,25 @@ class _DetailState extends State<Detail> {
   void initState() {
     super.initState();
     _fetchData();
-    _adInWishlist();
   }
 
   Future<void> _fetchData() async {
     final data = await _adController.getDataDetail(widget.ad_id);
+    if(data.length >0){
+      print('success');
+    }else{
+      print('failed');
+    }
     setState(() {
       _data = data.cast<AdDetail>();
+      print(_data);
     });
   }
 
-  Future<void> _adInWishlist() async {
-    final adData = await _adController.getData();
-    final wishlistData  = await _wishlistController.getWishlist("211511097");
-    final adInWishlist = wishlistData.any((wishlist) => wishlist.ad_id == widget.ad_id);
-    setState(() {
-       isWishlist = wishlistData.any((element) => element.ad_id == widget.ad_id);
-          if (isWishlist==1) {
-            icon.add(
-              Icon(
-                Icons.favorite_border,
-                color: Colors.red,
-              ),
-            );
-          } else {
-            icon.add(
-              Icon(
-                Icons.favorite_border,
-              ),
-            );
-          }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    print('data$_data');
     return Scaffold(
       appBar: new AppBar(
         backgroundColor: Color.fromARGB(1000, 171, 0, 52),
@@ -128,10 +113,10 @@ class _DetailState extends State<Detail> {
                                           alignment: Alignment.topRight,
                                           child: IconButton(
                                             padding: EdgeInsets.zero,
-                                            icon: icon.elementAt(0),
+                                            icon: Icon(Icons.favorite_border),
                                             onPressed: () {
                                               setState(() {
-                                                _wishlistController.addWishlist('211511097', ad.ad_id, '5');
+                                                _wishlistController.addWishlist(widget.nimUser, ad.ad_id);
 
                                               });
                                             },
@@ -264,7 +249,7 @@ class _DetailState extends State<Detail> {
                                         ),
                                         color: Colors.white,
                                       ),
-                                      child: DetailWidget.HubungiPenjual(),
+                                      child: DetailWidget.HubungiPenjual(nim:ad.nim),
                                     )
                                   ],
                                 ),

@@ -7,19 +7,22 @@ class ListIklan extends StatelessWidget {
       {required this.foto,
       required this.judul,
       required this.harga,
-      required this.ad_id});
+      required this.ad_id,
+      required this.nimUser});
   final String ad_id;
   final String foto;
   final String judul;
   final String harga;
+  final String nimUser;
 
   @override
   Widget build(BuildContext context) {
+    print(nimUser);
     return new InkWell(
       onTap: () {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => new Detail(ad_id: ad_id)),
+          MaterialPageRoute(builder: (context) => new Detail(ad_id: ad_id, nimUser: nimUser)),
         );
       },
       child: new Container(

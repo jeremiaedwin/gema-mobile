@@ -6,11 +6,12 @@ import '../pages/detail.dart';
 import '../pages/setting/KelolaProduk.dart';
 
 class OpsiProduk extends StatelessWidget {
-  OpsiProduk({required this.foto, required this.nama, required this.ad_id});
+  OpsiProduk({required this.foto, required this.nama, required this.ad_id, required this.nimUser});
 
   final String foto;
   final String nama;
   final String ad_id;
+  final String nimUser;
 
   @override
   Widget build(BuildContext context) {
@@ -52,12 +53,12 @@ class OpsiProduk extends StatelessWidget {
               if (value == 'lihat') {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => new Detail(ad_id: ad_id)),
+                  MaterialPageRoute(builder: (context) => new Detail(ad_id: ad_id, nimUser: nimUser,)),
                 );
               } else if (value == 'edit') {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => new EditIklan(ad_id: ad_id)),
+                  MaterialPageRoute(builder: (context) => new EditIklan(ad_id: ad_id, nim: nimUser,)),
                 );
               } else if (value == 'hapus') {
                 AdController adController = AdController();

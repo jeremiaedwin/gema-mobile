@@ -5,7 +5,9 @@ import '../models/Ad.dart';
 import '../widgets/CardIklan.dart';
 
 class Wishlist extends StatefulWidget {
-  const Wishlist({super.key});
+  final String nim;
+
+  const Wishlist({required this.nim});
 
   @override
   State<Wishlist> createState() => _WishlistState();
@@ -24,7 +26,7 @@ class _WishlistState extends State<Wishlist> {
 
   Future<void> _getDataIklan() async {
     final adData = await _adController.getData();
-    final wishlistData = await _wishlistController.getWishlist("211511097");
+    final wishlistData = await _wishlistController.getWishlist(widget.nim);
     print(wishlistData.length);
     setState(() {
       _adList = adData
@@ -65,7 +67,7 @@ class _WishlistState extends State<Wishlist> {
                 physics: BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount:
-                    _adList.length ~/ 2, // jumlah baris = jumlah iklan dibagi 2
+                    (_adList.length / 2).ceil(),// jumlah baris = jumlah iklan dibagi 2
                 itemBuilder: (context, index) {
                   final int firstIndex = index * 2;
                   final int secondIndex = firstIndex + 1;
@@ -79,6 +81,7 @@ class _WishlistState extends State<Wishlist> {
                           foto: _adList[firstIndex].image,
                           judul: _adList[firstIndex].title,
                           harga: _adList[firstIndex].price.toString(),
+                          nimUser: widget.nim
                         ),
                       ),
 
@@ -90,8 +93,13 @@ class _WishlistState extends State<Wishlist> {
                             foto: _adList[secondIndex].image,
                             judul: _adList[secondIndex].title,
                             harga: _adList[secondIndex].price.toString(),
+                            nimUser: widget.nim
                           ),
                         ),
+                        if (secondIndex >= _adList.length)
+                        Expanded(
+                            child:
+                                Container()),
                     ],
                   );
                 },

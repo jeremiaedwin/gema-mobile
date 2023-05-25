@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:gema_app/controllers/ChatController.dart';
-import 'package:gema_app/controllers/ChatController.dart';
-import 'package:gema_app/models/Chat.dart';
+import 'package:gema_app/models/Chat.dart' as ChatModel;
 import 'package:gema_app/models/Contact.dart';
 import 'package:gema_app/models/User.dart';
 import 'package:get/get.dart';
@@ -12,14 +11,15 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 import '../controllers/ChatController.dart';
 
-class Chat extends StatefulWidget {
-  const Chat({super.key});
+class ChatPage extends StatefulWidget {
+  ChatPage({required this.nim_sender});
+  String nim_sender;
 
   @override
-  State<Chat> createState() => _ChatState();
+  State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatState extends State<Chat> {
+class _ChatPageState extends State<ChatPage> {
   List<Contact> _contactList = [];
 
 
@@ -42,7 +42,7 @@ class _ChatState extends State<Chat> {
   }
 
   Future<void> _getData() async {
-    final data = await chatController.getContact();
+    final data = await chatController.getContact(widget.nim_sender);
     setState(() {
       _contactList = data.cast<Contact>();
     });
@@ -91,11 +91,10 @@ class _ChatState extends State<Chat> {
               title: Text(contact.full_name),
               // subtitle: Text("Item masih ada?"),
               leading: CircleAvatar(backgroundImage: NetworkImage(contact.avatar)),
-              trailing: Text("20.00"),
               onTap : (){
                       Navigator.push(context,
                         new MaterialPageRoute(
-                          builder: (context) => new ChatRoom2(nim: contact.nim, full_name:contact.full_name, avatar:contact.avatar),
+                          builder: (context) => new ChatRoom2(nim: contact.nim, full_name:contact.full_name, avatar:contact.avatar, nim_sender: widget.nim_sender),
                         ),);
                       }),
             );
@@ -107,23 +106,47 @@ class _ChatState extends State<Chat> {
 }
 
 class ChatRoom2 extends StatefulWidget {
-  ChatRoom2({super.key, required this.full_name, required this.nim, required this.avatar});
-  String full_name;
-  String nim;
-  String avatar;
-  
+  ChatRoom2({
+    Key? key,
+    required this.full_name,
+    required this.nim,
+    required this.avatar,
+    required this.nim_sender,
+  }) : super(key: key);
+
+  final String full_name;
+  final String nim;
+  final String avatar;
+  final String nim_sender;
 
   @override
   State<ChatRoom2> createState() => _ChatRoom2State();
 }
 
 class _ChatRoom2State extends State<ChatRoom2> {
-  ChatController chatController = ChatController();
-  TextEditingController messageController= new TextEditingController();
+  ChatController _chatController = ChatController();
+  TextEditingController messageController = TextEditingController();
+  List<ChatModel.Chat> _chatList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  Future<void> _getData() async {
+    final data = await _chatController.getChat();
+    setState(() {
+      _chatList = data.cast<ChatModel.Chat>()
+      .where((chat) => chat.sender_id == widget.nim_sender && chat.receiver_id == widget.nim)
+        .toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: new AppBar(
+      appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
@@ -132,32 +155,73 @@ class _ChatRoom2State extends State<ChatRoom2> {
             padding: EdgeInsets.only(right: 16),
             child: Row(
               children: <Widget>[
-                IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back, color: Colors.black,)),
-                SizedBox(width: 2,),
+                IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.arrow_back, color: Colors.black),
+                ),
+                SizedBox(width: 2),
                 CircleAvatar(
                   backgroundImage: NetworkImage(widget.avatar),
                   maxRadius: 20,
                 ),
-                SizedBox(width: 12,),
+                SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(widget.full_name, style: TextStyle( fontSize: 16 ,fontWeight: FontWeight.w600),),
-                      SizedBox(height: 6,),
-                      Text("Online", style: TextStyle(color: Colors.grey.shade600, fontSize: 13),),
+                      Text(
+                        widget.full_name,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 6),
                     ],
+                  ),
                 ),
+                Icon(
+                  Icons.settings,
+                  color: Colors.black54,
                 ),
-                Icon(Icons.settings,color: Colors.black54,),
               ],
             ),
-          ) 
           ),
+        ),
       ),
-      body: Stack(
-        children: <Widget>[
+      body: Column(
+        children: [
+          Expanded(
+      child: ListView.builder(
+        itemCount: _chatList.length,
+        itemBuilder: (context, index) {
+          final chat = _chatList[index];
+          final isSender = chat.sender_id == widget.nim_sender;
+          final alignment = isSender ? Alignment.centerRight : Alignment.centerLeft;
+          final backgroundColor = isSender ? Color.fromARGB(1000, 171, 0, 52) : Colors.grey;
+          final textColor = Colors.white;
+          return Container(
+            alignment: alignment,
+            margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            child: Container(
+              constraints: BoxConstraints(maxWidth: 200), // Set the maximum width here
+              padding: EdgeInsets.all(10),
+              color: backgroundColor,
+              child: Text(
+                chat.message,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
@@ -174,39 +238,49 @@ class _ChatRoom2State extends State<ChatRoom2> {
                       width: 30,
                       decoration: BoxDecoration(
                         color: Color.fromARGB(1000, 171, 0, 52),
-                        borderRadius: BorderRadius.circular(30)
+                        borderRadius: BorderRadius.circular(30),
                       ),
-                      child: Icon(Icons.add, color: Colors.white, size: 20,),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ),
                   ),
-                  SizedBox(width: 15,),
+                  SizedBox(width: 15),
                   Expanded(
                     child: TextField(
                       controller: messageController,
                       decoration: InputDecoration(
                         hintText: "Write message...",
                         hintStyle: TextStyle(color: Colors.black54),
-                        border: InputBorder.none
+                        border: InputBorder.none,
                       ),
                     ),
                   ),
-                  SizedBox(width: 15,),
+                  SizedBox(width: 15),
                   FloatingActionButton(
                     onPressed: () {
-                        setState(() {
-                          chatController.sendMessage(null, messageController.text, widget.nim, '211511097');
-                        });
-                      },
-                    child: Icon(Icons.send,color: Colors.white,size: 18,),
+                      setState(() {
+                        _chatController.sendMessage(
+                          null,
+                          messageController.text,
+                          widget.nim,
+                          widget.nim_sender,
+                        );
+                        messageController.clear();
+                      });
+                    },
+                    child: Icon(Icons.send, color: Colors.white, size: 18),
                     backgroundColor: Color.fromARGB(1000, 171, 0, 52),
                     elevation: 0,
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
-      )
+      ),
     );
   }
 }

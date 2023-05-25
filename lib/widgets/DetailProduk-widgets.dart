@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import "../pages/detail.dart";
-import '../pages/profilToko.dart';
+import '../pages/profilToko.dart' as ProfilToko;
 import 'package:url_launcher/url_launcher.dart';
 class TextNormal extends StatelessWidget {
   TextNormal({required this.teks});
@@ -121,18 +121,20 @@ class FotoToko extends StatelessWidget {
 }
 
 class HubungiPenjual extends StatelessWidget {
-  HubungiPenjual();
+  final String nim;
+
+  const HubungiPenjual({required this.nim});
 
   @override
   Widget build(BuildContext context) {
     return new InkWell(
         onTap: () async {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => profilToko()),
-          // );
-          print('test');
-          whatsapp();
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfilToko.ProfilToko(nim: nim)),
+          );
+          // print('test');
+          // whatsapp();
         },
         child: new Container(
           padding: EdgeInsets.all(10),

@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       home: LoginPage(),
       routes: <String, WidgetBuilder>{
         // '/addItem': (BuildContext context) => item.AdTypeView(),
-        '/chat': (BuildContext context) => chat.Chat(),
+        // '/chat': (BuildContext context) => chat.Chat(,),
       },
     );
   }
@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
 
   @override
   void initState() {
-    controller = TabController(vsync: this, length: 4);
+    controller = TabController(vsync: this, length: 3);
     super.initState();
   }
 
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           onPressed: () {
             showSearch(
               context: context,
-              delegate: CustomSearchDelegate(),
+              delegate: CustomSearchDelegate(nim: widget.nim),
             );
           },
           icon: Icon(Icons.search),
@@ -90,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
           ),
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/chat');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => chat.ChatPage(nim_sender: widget.nim)));
             },
             icon: Icon(Icons.chat_bubble_rounded),
           ),
@@ -99,9 +99,8 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
       body: TabBarView(
         controller: controller,
         children: <Widget>[
-          home.Home(),
-          wishlist.Wishlist(),
-          notifikasi.Notifikasi(),
+          home.Home(nim: widget.nim),
+          wishlist.Wishlist(nim: widget.nim),
           akun.Akun(nim: widget.nim),
         ],
       ),
@@ -118,7 +117,6 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
               text: "Beranda",
             ),
             Tab(icon: Icon(Icons.favorite), text: "Wishlist"),
-            Tab(icon: Icon(Icons.notifications), text: "Notifikasi"),
             Tab(icon: Icon(Icons.account_circle), text: "Akun Saya"),
           ],
         ),
